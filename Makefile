@@ -8,6 +8,7 @@ SRC_DIR = src
 DATA_DIR = $(SRC_DIR)/data
 ALGO_DIR = $(SRC_DIR)/algorithms
 UTILS_DIR = $(SRC_DIR)/utils
+SCHED_DIR = $(SRC_DIR)/scheduling
 BUILD_DIR = build
 BIN_DIR = bin
 
@@ -24,7 +25,8 @@ SOURCES = $(SRC_DIR)/main.c \
           $(UTILS_DIR)/common.c \
           $(ALGO_DIR)/greedy/round_robin.c \
           $(ALGO_DIR)/sorting/merge_sort.c \
-          $(ALGO_DIR)/searching/binary_search.c
+          $(ALGO_DIR)/searching/binary_search.c \
+          $(SCHED_DIR)/validator.c
 
 # Object files
 OBJECTS = $(SOURCES:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
@@ -38,6 +40,7 @@ directories:
 	@mkdir -p $(BUILD_DIR)/algorithms/greedy
 	@mkdir -p $(BUILD_DIR)/algorithms/sorting
 	@mkdir -p $(BUILD_DIR)/algorithms/searching
+	@mkdir -p $(BUILD_DIR)/scheduling
 	@mkdir -p $(BUILD_DIR)/utils
 	@mkdir -p $(BIN_DIR)
 
@@ -68,8 +71,32 @@ help:
 	@echo "Available targets:"
 	@echo "  make          - Build the project"
 	@echo "  make run      - Build and run the scheduler"
+	@echo "  make test     - Build and run all tests"
 	@echo "  make clean    - Remove build files"
 	@echo "  make rebuild  - Clean and rebuild"
 	@echo "  make help     - Show this help message"
 
-.PHONY: all directories run clean rebuild help
+# Test targets
+test: test-round-robin test-validator
+	@echo "✓ All tests completed"
+
+test-round-robin: directories
+	@echo "Building round-robin tests..."
+	@$(CC) $(CFLAGS) tests/test_round_robin.c \
+		$(DATA_DIR)/team.c $(DATA_DIR)/venue.c $(DATA_DIR)/fixture.c \
+		$(UTILS_DIR)/common.c $(ALGO_DIR)/greedy/round_robin.c \
+		-lm -o $(BUILD_DIR)/test_round_robin
+	@echo "Running round-robin tests..."
+	@./$(BUILD_DIR)/test_round_robin
+
+test-validator: directories
+	@echo "Building validator tests..."
+	@$(CC) $(CFLAGS) tests/test_validator.c \
+		$(DATA_DIR)/team.c $(DATA_DIR)/venue.c $(DATA_DIR)/fixture.c \
+		$(UTILS_DIR)/common.c $(ALGO_DIR)/greedy/round_robin.c \
+		$(SCHED_DIR)/validator.c \
+		-lm -o $(BUILD_DIR)/test_validator
+	@echo "Running validator tests..."
+	@./$(BUILD_DIR)/test_validator
+
+.PHONY: all directories run clean rebuild help test test-round-robin test-validator
