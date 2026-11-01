@@ -1,0 +1,12 @@
+{
+  "documents": [
+    "PROJECT_OVERVIEW.md",
+    "ARCHITECTURE.md",
+    "ALGORITHM_MAPPING.md",
+    "DATA_STRUCTURES.md",
+    "IMPLEMENTATION_TIMELINE.md",
+    "TESTING_STRATEGY.md"
+  ],
+  "nodes": 63,
+  "edges": 90
+}

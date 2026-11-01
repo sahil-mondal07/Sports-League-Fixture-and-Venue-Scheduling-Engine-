@@ -1,0 +1,1486 @@
+{
+  "directed": false,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "id": "concept:algorithm-library",
+      "label": "Algorithm Library",
+      "community": 0,
+      "community_name": "Project area 1",
+      "description": "",
+      "file_type": "concept",
+      "norm_label": "algorithm library",
+      "source_file": "PROJECT_OVERVIEW.md",
+      "source_location": "PROJECT_OVERVIEW.md",
+      "type": "concept"
+    },
+    {
+      "id": "concept:benchmark-and-testing",
+      "label": "Benchmark and Testing",
+      "community": 0,
+      "community_name": "Project area 1",
+      "description": "",
+      "file_type": "concept",
+      "norm_label": "benchmark and testing",
+      "source_file": "ARCHITECTURE.md",
+      "source_location": "ARCHITECTURE.md",
+      "type": "concept"
+    },
+    {
+      "id": "concept:cli-interface",
+      "label": "CLI Interface",
+      "community": 0,
+      "community_name": "Project area 1",
+      "description": "",
+      "file_type": "concept",
+      "norm_label": "cli interface",
+      "source_file": "PROJECT_OVERVIEW.md",
+      "source_location": "PROJECT_OVERVIEW.md",
+      "type": "concept"
+    },
+    {
+      "id": "concept:conflict-resolver",
+      "label": "Conflict Resolver",
+      "community": 0,
+      "community_name": "Project area 1",
+      "description": "",
+      "file_type": "concept",
+      "norm_label": "conflict resolver",
+      "source_file": "ARCHITECTURE.md",
+      "source_location": "ARCHITECTURE.md",
+      "type": "concept"
+    },
+    {
+      "id": "concept:data-layer",
+      "label": "Data Layer",
+      "community": 0,
+      "community_name": "Project area 1",
+      "description": "",
+      "file_type": "concept",
+      "norm_label": "data layer",
+      "source_file": "ARCHITECTURE.md",
+      "source_location": "ARCHITECTURE.md",
+      "type": "concept"
+    },
+    {
+      "id": "concept:data-structures",
+      "label": "Data Structures",
+      "community": 0,
+      "community_name": "Project area 1",
+      "description": "",
+      "file_type": "concept",
+      "norm_label": "data structures",
+      "source_file": "PROJECT_OVERVIEW.md",
+      "source_location": "PROJECT_OVERVIEW.md",
+      "type": "concept"
+    },
+    {
+      "id": "concept:fairness-validator",
+      "label": "Fairness Validator",
+      "community": 0,
+      "community_name": "Project area 1",
+      "description": "",
+      "file_type": "concept",
+      "norm_label": "fairness validator",
+      "source_file": "ARCHITECTURE.md",
+      "source_location": "ARCHITECTURE.md",
+      "type": "concept"
+    },
+    {
+      "id": "concept:fixture-generator",
+      "label": "Fixture Generator",
+      "community": 0,
+      "community_name": "Project area 1",
+      "description": "",
+      "file_type": "concept",
+      "norm_label": "fixture generator",
+      "source_file": "ARCHITECTURE.md",
+      "source_location": "ARCHITECTURE.md",
+      "type": "concept"
+    },
+    {
+      "id": "concept:football-scheduling",
+      "label": "Football Scheduling",
+      "community": 0,
+      "community_name": "Project area 1",
+      "description": "",
+      "file_type": "concept",
+      "norm_label": "football scheduling",
+      "source_file": "PROJECT_OVERVIEW.md",
+      "source_location": "PROJECT_OVERVIEW.md",
+      "type": "concept"
+    },
+    {
+      "id": "concept:travel-cost",
+      "label": "Travel Cost",
+      "community": 0,
+      "community_name": "Project area 1",
+      "description": "",
+      "file_type": "concept",
+      "norm_label": "travel cost",
+      "source_file": "PROJECT_OVERVIEW.md",
+      "source_location": "PROJECT_OVERVIEW.md",
+      "type": "concept"
+    },
+    {
+      "id": "concept:travel-optimizer",
+      "label": "Travel Optimizer",
+      "community": 0,
+      "community_name": "Project area 1",
+      "description": "",
+      "file_type": "concept",
+      "norm_label": "travel optimizer",
+      "source_file": "ARCHITECTURE.md",
+      "source_location": "ARCHITECTURE.md",
+      "type": "concept"
+    },
+    {
+      "id": "concept:utilities",
+      "label": "Utilities",
+      "community": 0,
+      "community_name": "Project area 1",
+      "description": "",
+      "file_type": "concept",
+      "norm_label": "utilities",
+      "source_file": "ARCHITECTURE.md",
+      "source_location": "ARCHITECTURE.md",
+      "type": "concept"
+    },
+    {
+      "id": "concept:venue-allocator",
+      "label": "Venue Allocator",
+      "community": 0,
+      "community_name": "Project area 1",
+      "description": "",
+      "file_type": "concept",
+      "norm_label": "venue allocator",
+      "source_file": "ARCHITECTURE.md",
+      "source_location": "ARCHITECTURE.md",
+      "type": "concept"
+    },
+    {
+      "id": "doc:ARCHITECTURE.md",
+      "label": "ARCHITECTURE",
+      "community": 0,
+      "community_name": "Project area 1",
+      "description": "",
+      "file_type": "concept",
+      "norm_label": "architecture",
+      "source_file": "ARCHITECTURE.md",
+      "source_location": "ARCHITECTURE.md",
+      "type": "document"
+    },
+    {
+      "id": "doc:PROJECT_OVERVIEW.md",
+      "label": "PROJECT_OVERVIEW",
+      "community": 0,
+      "community_name": "Project area 1",
+      "description": "",
+      "file_type": "concept",
+      "norm_label": "project_overview",
+      "source_file": "PROJECT_OVERVIEW.md",
+      "source_location": "PROJECT_OVERVIEW.md",
+      "type": "document"
+    },
+    {
+      "id": "concept:fairness-validation",
+      "label": "Fairness Validation",
+      "community": 1,
+      "community_name": "Project area 2",
+      "description": "",
+      "file_type": "concept",
+      "norm_label": "fairness validation",
+      "source_file": "PROJECT_OVERVIEW.md",
+      "source_location": "PROJECT_OVERVIEW.md",
+      "type": "concept"
+    },
+    {
+      "id": "concept:fixture",
+      "label": "Fixture",
+      "community": 1,
+      "community_name": "Project area 2",
+      "description": "",
+      "file_type": "concept",
+      "norm_label": "fixture",
+      "source_file": "DATA_STRUCTURES.md",
+      "source_location": "DATA_STRUCTURES.md",
+      "type": "concept"
+    },
+    {
+      "id": "concept:fixture-generation",
+      "label": "Fixture Generation",
+      "community": 1,
+      "community_name": "Project area 2",
+      "description": "",
+      "file_type": "concept",
+      "norm_label": "fixture generation",
+      "source_file": "ALGORITHM_MAPPING.md",
+      "source_location": "ALGORITHM_MAPPING.md",
+      "type": "concept"
+    },
+    {
+      "id": "concept:kruskal",
+      "label": "Kruskal",
+      "community": 1,
+      "community_name": "Project area 2",
+      "description": "",
+      "file_type": "concept",
+      "norm_label": "kruskal",
+      "source_file": "ALGORITHM_MAPPING.md",
+      "source_location": "ALGORITHM_MAPPING.md",
+      "type": "concept"
+    },
+    {
+      "id": "concept:mst-result",
+      "label": "MST Result",
+      "community": 1,
+      "community_name": "Project area 2",
+      "description": "",
+      "file_type": "concept",
+      "norm_label": "mst result",
+      "source_file": "DATA_STRUCTURES.md",
+      "source_location": "DATA_STRUCTURES.md",
+      "type": "concept"
+    },
+    {
+      "id": "concept:prim",
+      "label": "Prim",
+      "community": 1,
+      "community_name": "Project area 2",
+      "description": "",
+      "file_type": "concept",
+      "norm_label": "prim",
+      "source_file": "ALGORITHM_MAPPING.md",
+      "source_location": "ALGORITHM_MAPPING.md",
+      "type": "concept"
+    },
+    {
+      "id": "concept:priority-queue",
+      "label": "Priority Queue",
+      "community": 1,
+      "community_name": "Project area 2",
+      "description": "",
+      "file_type": "concept",
+      "norm_label": "priority queue",
+      "source_file": "DATA_STRUCTURES.md",
+      "source_location": "DATA_STRUCTURES.md",
+      "type": "concept"
+    },
+    {
+      "id": "concept:schedule",
+      "label": "Schedule",
+      "community": 1,
+      "community_name": "Project area 2",
+      "description": "",
+      "file_type": "concept",
+      "norm_label": "schedule",
+      "source_file": "DATA_STRUCTURES.md",
+      "source_location": "DATA_STRUCTURES.md",
+      "type": "concept"
+    },
+    {
+      "id": "concept:scheduling-engine",
+      "label": "Scheduling Engine",
+      "community": 1,
+      "community_name": "Project area 2",
+      "description": "",
+      "file_type": "concept",
+      "norm_label": "scheduling engine",
+      "source_file": "PROJECT_OVERVIEW.md",
+      "source_location": "PROJECT_OVERVIEW.md",
+      "type": "concept"
+    },
+    {
+      "id": "concept:shortest-path-result",
+      "label": "Shortest Path Result",
+      "community": 1,
+      "community_name": "Project area 2",
+      "description": "",
+      "file_type": "concept",
+      "norm_label": "shortest path result",
+      "source_file": "DATA_STRUCTURES.md",
+      "source_location": "DATA_STRUCTURES.md",
+      "type": "concept"
+    },
+    {
+      "id": "concept:team",
+      "label": "Team",
+      "community": 1,
+      "community_name": "Project area 2",
+      "description": "",
+      "file_type": "concept",
+      "norm_label": "team",
+      "source_file": "DATA_STRUCTURES.md",
+      "source_location": "DATA_STRUCTURES.md",
+      "type": "concept"
+    },
+    {
+      "id": "concept:travel-graph",
+      "label": "Travel Graph",
+      "community": 1,
+      "community_name": "Project area 2",
+      "description": "",
+      "file_type": "concept",
+      "norm_label": "travel graph",
+      "source_file": "DATA_STRUCTURES.md",
+      "source_location": "DATA_STRUCTURES.md",
+      "type": "concept"
+    },
+    {
+      "id": "concept:union-find",
+      "label": "Union-Find",
+      "community": 1,
+      "community_name": "Project area 2",
+      "description": "",
+      "file_type": "concept",
+      "norm_label": "union-find",
+      "source_file": "DATA_STRUCTURES.md",
+      "source_location": "DATA_STRUCTURES.md",
+      "type": "concept"
+    },
+    {
+      "id": "concept:venue",
+      "label": "Venue",
+      "community": 1,
+      "community_name": "Project area 2",
+      "description": "",
+      "file_type": "concept",
+      "norm_label": "venue",
+      "source_file": "DATA_STRUCTURES.md",
+      "source_location": "DATA_STRUCTURES.md",
+      "type": "concept"
+    },
+    {
+      "id": "doc:DATA_STRUCTURES.md",
+      "label": "DATA_STRUCTURES",
+      "community": 1,
+      "community_name": "Project area 2",
+      "description": "",
+      "file_type": "concept",
+      "norm_label": "data_structures",
+      "source_file": "DATA_STRUCTURES.md",
+      "source_location": "DATA_STRUCTURES.md",
+      "type": "document"
+    },
+    {
+      "id": "concept:activity-selection",
+      "label": "Activity Selection",
+      "community": 2,
+      "community_name": "Project area 3",
+      "description": "",
+      "file_type": "concept",
+      "norm_label": "activity selection",
+      "source_file": "ALGORITHM_MAPPING.md",
+      "source_location": "ALGORITHM_MAPPING.md",
+      "type": "concept"
+    },
+    {
+      "id": "concept:bellman-ford",
+      "label": "Bellman-Ford",
+      "community": 2,
+      "community_name": "Project area 3",
+      "description": "",
+      "file_type": "concept",
+      "norm_label": "bellman-ford",
+      "source_file": "ALGORITHM_MAPPING.md",
+      "source_location": "ALGORITHM_MAPPING.md",
+      "type": "concept"
+    },
+    {
+      "id": "concept:binary-search",
+      "label": "Binary Search",
+      "community": 2,
+      "community_name": "Project area 3",
+      "description": "",
+      "file_type": "concept",
+      "norm_label": "binary search",
+      "source_file": "ALGORITHM_MAPPING.md",
+      "source_location": "ALGORITHM_MAPPING.md",
+      "type": "concept"
+    },
+    {
+      "id": "concept:bipartite-matching",
+      "label": "Bipartite Matching",
+      "community": 2,
+      "community_name": "Project area 3",
+      "description": "",
+      "file_type": "concept",
+      "norm_label": "bipartite matching",
+      "source_file": "ALGORITHM_MAPPING.md",
+      "source_location": "ALGORITHM_MAPPING.md",
+      "type": "concept"
+    },
+    {
+      "id": "concept:bounded-tsp",
+      "label": "Bounded TSP",
+      "community": 2,
+      "community_name": "Project area 3",
+      "description": "",
+      "file_type": "concept",
+      "norm_label": "bounded tsp",
+      "source_file": "ALGORITHM_MAPPING.md",
+      "source_location": "ALGORITHM_MAPPING.md",
+      "type": "concept"
+    },
+    {
+      "id": "concept:broadcast-capacity",
+      "label": "Broadcast Capacity",
+      "community": 2,
+      "community_name": "Project area 3",
+      "description": "",
+      "file_type": "concept",
+      "norm_label": "broadcast capacity",
+      "source_file": "ALGORITHM_MAPPING.md",
+      "source_location": "ALGORITHM_MAPPING.md",
+      "type": "concept"
+    },
+    {
+      "id": "concept:chinese-remainder-theorem",
+      "label": "Chinese Remainder Theorem",
+      "community": 2,
+      "community_name": "Project area 3",
+      "description": "",
+      "file_type": "concept",
+      "norm_label": "chinese remainder theorem",
+      "source_file": "ALGORITHM_MAPPING.md",
+      "source_location": "ALGORITHM_MAPPING.md",
+      "type": "concept"
+    },
+    {
+      "id": "concept:dijkstra",
+      "label": "Dijkstra",
+      "community": 2,
+      "community_name": "Project area 3",
+      "description": "",
+      "file_type": "concept",
+      "norm_label": "dijkstra",
+      "source_file": "ALGORITHM_MAPPING.md",
+      "source_location": "ALGORITHM_MAPPING.md",
+      "type": "concept"
+    },
+    {
+      "id": "concept:floyd-warshall",
+      "label": "Floyd-Warshall",
+      "community": 2,
+      "community_name": "Project area 3",
+      "description": "",
+      "file_type": "concept",
+      "norm_label": "floyd-warshall",
+      "source_file": "ALGORITHM_MAPPING.md",
+      "source_location": "ALGORITHM_MAPPING.md",
+      "type": "concept"
+    },
+    {
+      "id": "concept:knapsack",
+      "label": "Knapsack",
+      "community": 2,
+      "community_name": "Project area 3",
+      "description": "",
+      "file_type": "concept",
+      "norm_label": "knapsack",
+      "source_file": "ALGORITHM_MAPPING.md",
+      "source_location": "ALGORITHM_MAPPING.md",
+      "type": "concept"
+    },
+    {
+      "id": "concept:string-matching",
+      "label": "String Matching",
+      "community": 2,
+      "community_name": "Project area 3",
+      "description": "",
+      "file_type": "concept",
+      "norm_label": "string matching",
+      "source_file": "ALGORITHM_MAPPING.md",
+      "source_location": "ALGORITHM_MAPPING.md",
+      "type": "concept"
+    },
+    {
+      "id": "concept:travel-optimization",
+      "label": "Travel Optimization",
+      "community": 2,
+      "community_name": "Project area 3",
+      "description": "",
+      "file_type": "concept",
+      "norm_label": "travel optimization",
+      "source_file": "ALGORITHM_MAPPING.md",
+      "source_location": "ALGORITHM_MAPPING.md",
+      "type": "concept"
+    },
+    {
+      "id": "concept:venue-allocation",
+      "label": "Venue Allocation",
+      "community": 2,
+      "community_name": "Project area 3",
+      "description": "",
+      "file_type": "concept",
+      "norm_label": "venue allocation",
+      "source_file": "ALGORITHM_MAPPING.md",
+      "source_location": "ALGORITHM_MAPPING.md",
+      "type": "concept"
+    },
+    {
+      "id": "doc:ALGORITHM_MAPPING.md",
+      "label": "ALGORITHM_MAPPING",
+      "community": 2,
+      "community_name": "Project area 3",
+      "description": "",
+      "file_type": "concept",
+      "norm_label": "algorithm_mapping",
+      "source_file": "ALGORITHM_MAPPING.md",
+      "source_location": "ALGORITHM_MAPPING.md",
+      "type": "document"
+    },
+    {
+      "id": "concept:backtracking",
+      "label": "Backtracking",
+      "community": 3,
+      "community_name": "Project area 4",
+      "description": "",
+      "file_type": "concept",
+      "norm_label": "backtracking",
+      "source_file": "IMPLEMENTATION_TIMELINE.md",
+      "source_location": "IMPLEMENTATION_TIMELINE.md",
+      "type": "concept"
+    },
+    {
+      "id": "concept:branch-and-bound",
+      "label": "Branch and Bound",
+      "community": 3,
+      "community_name": "Project area 4",
+      "description": "",
+      "file_type": "concept",
+      "norm_label": "branch and bound",
+      "source_file": "IMPLEMENTATION_TIMELINE.md",
+      "source_location": "IMPLEMENTATION_TIMELINE.md",
+      "type": "concept"
+    },
+    {
+      "id": "concept:divide-and-conquer",
+      "label": "Divide and Conquer",
+      "community": 3,
+      "community_name": "Project area 4",
+      "description": "",
+      "file_type": "concept",
+      "norm_label": "divide and conquer",
+      "source_file": "IMPLEMENTATION_TIMELINE.md",
+      "source_location": "IMPLEMENTATION_TIMELINE.md",
+      "type": "concept"
+    },
+    {
+      "id": "concept:dynamic-programming",
+      "label": "Dynamic Programming",
+      "community": 3,
+      "community_name": "Project area 4",
+      "description": "",
+      "file_type": "concept",
+      "norm_label": "dynamic programming",
+      "source_file": "IMPLEMENTATION_TIMELINE.md",
+      "source_location": "IMPLEMENTATION_TIMELINE.md",
+      "type": "concept"
+    },
+    {
+      "id": "concept:ford-fulkerson",
+      "label": "Ford-Fulkerson",
+      "community": 3,
+      "community_name": "Project area 4",
+      "description": "",
+      "file_type": "concept",
+      "norm_label": "ford-fulkerson",
+      "source_file": "ALGORITHM_MAPPING.md",
+      "source_location": "ALGORITHM_MAPPING.md",
+      "type": "concept"
+    },
+    {
+      "id": "concept:foundation",
+      "label": "Foundation",
+      "community": 3,
+      "community_name": "Project area 4",
+      "description": "",
+      "file_type": "concept",
+      "norm_label": "foundation",
+      "source_file": "IMPLEMENTATION_TIMELINE.md",
+      "source_location": "IMPLEMENTATION_TIMELINE.md",
+      "type": "concept"
+    },
+    {
+      "id": "concept:graph-algorithms",
+      "label": "Graph Algorithms",
+      "community": 3,
+      "community_name": "Project area 4",
+      "description": "",
+      "file_type": "concept",
+      "norm_label": "graph algorithms",
+      "source_file": "IMPLEMENTATION_TIMELINE.md",
+      "source_location": "IMPLEMENTATION_TIMELINE.md",
+      "type": "concept"
+    },
+    {
+      "id": "concept:greedy-algorithms",
+      "label": "Greedy Algorithms",
+      "community": 3,
+      "community_name": "Project area 4",
+      "description": "",
+      "file_type": "concept",
+      "norm_label": "greedy algorithms",
+      "source_file": "IMPLEMENTATION_TIMELINE.md",
+      "source_location": "IMPLEMENTATION_TIMELINE.md",
+      "type": "concept"
+    },
+    {
+      "id": "concept:network-flow",
+      "label": "Network Flow",
+      "community": 3,
+      "community_name": "Project area 4",
+      "description": "",
+      "file_type": "concept",
+      "norm_label": "network flow",
+      "source_file": "IMPLEMENTATION_TIMELINE.md",
+      "source_location": "IMPLEMENTATION_TIMELINE.md",
+      "type": "concept"
+    },
+    {
+      "id": "doc:IMPLEMENTATION_TIMELINE.md",
+      "label": "IMPLEMENTATION_TIMELINE",
+      "community": 3,
+      "community_name": "Project area 4",
+      "description": "",
+      "file_type": "concept",
+      "norm_label": "implementation_timeline",
+      "source_file": "IMPLEMENTATION_TIMELINE.md",
+      "source_location": "IMPLEMENTATION_TIMELINE.md",
+      "type": "document"
+    },
+    {
+      "id": "concept:benchmark-mode",
+      "label": "Benchmark Mode",
+      "community": 4,
+      "community_name": "Project area 5",
+      "description": "",
+      "file_type": "concept",
+      "norm_label": "benchmark mode",
+      "source_file": "PROJECT_OVERVIEW.md",
+      "source_location": "PROJECT_OVERVIEW.md",
+      "type": "concept"
+    },
+    {
+      "id": "concept:benchmark-tests",
+      "label": "Benchmark Tests",
+      "community": 4,
+      "community_name": "Project area 5",
+      "description": "",
+      "file_type": "concept",
+      "norm_label": "benchmark tests",
+      "source_file": "TESTING_STRATEGY.md",
+      "source_location": "TESTING_STRATEGY.md",
+      "type": "concept"
+    },
+    {
+      "id": "concept:end-to-end-tests",
+      "label": "End-to-End Tests",
+      "community": 4,
+      "community_name": "Project area 5",
+      "description": "",
+      "file_type": "concept",
+      "norm_label": "end-to-end tests",
+      "source_file": "TESTING_STRATEGY.md",
+      "source_location": "TESTING_STRATEGY.md",
+      "type": "concept"
+    },
+    {
+      "id": "concept:integration-tests",
+      "label": "Integration Tests",
+      "community": 4,
+      "community_name": "Project area 5",
+      "description": "",
+      "file_type": "concept",
+      "norm_label": "integration tests",
+      "source_file": "TESTING_STRATEGY.md",
+      "source_location": "TESTING_STRATEGY.md",
+      "type": "concept"
+    },
+    {
+      "id": "concept:merge-sort",
+      "label": "Merge Sort",
+      "community": 4,
+      "community_name": "Project area 5",
+      "description": "",
+      "file_type": "concept",
+      "norm_label": "merge sort",
+      "source_file": "ALGORITHM_MAPPING.md",
+      "source_location": "ALGORITHM_MAPPING.md",
+      "type": "concept"
+    },
+    {
+      "id": "concept:scenario-testing",
+      "label": "Scenario Testing",
+      "community": 4,
+      "community_name": "Project area 5",
+      "description": "",
+      "file_type": "concept",
+      "norm_label": "scenario testing",
+      "source_file": "TESTING_STRATEGY.md",
+      "source_location": "TESTING_STRATEGY.md",
+      "type": "concept"
+    },
+    {
+      "id": "concept:testing-and-documentation",
+      "label": "Testing and Documentation",
+      "community": 4,
+      "community_name": "Project area 5",
+      "description": "",
+      "file_type": "concept",
+      "norm_label": "testing and documentation",
+      "source_file": "IMPLEMENTATION_TIMELINE.md",
+      "source_location": "IMPLEMENTATION_TIMELINE.md",
+      "type": "concept"
+    },
+    {
+      "id": "concept:unit-tests",
+      "label": "Unit Tests",
+      "community": 4,
+      "community_name": "Project area 5",
+      "description": "",
+      "file_type": "concept",
+      "norm_label": "unit tests",
+      "source_file": "TESTING_STRATEGY.md",
+      "source_location": "TESTING_STRATEGY.md",
+      "type": "concept"
+    },
+    {
+      "id": "doc:TESTING_STRATEGY.md",
+      "label": "TESTING_STRATEGY",
+      "community": 4,
+      "community_name": "Project area 5",
+      "description": "",
+      "file_type": "concept",
+      "norm_label": "testing_strategy",
+      "source_file": "TESTING_STRATEGY.md",
+      "source_location": "TESTING_STRATEGY.md",
+      "type": "document"
+    }
+  ],
+  "links": [
+    {
+      "source": "doc:ALGORITHM_MAPPING.md",
+      "target": "concept:activity-selection",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "ALGORITHM_MAPPING.md"
+    },
+    {
+      "source": "doc:ALGORITHM_MAPPING.md",
+      "target": "concept:bellman-ford",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "ALGORITHM_MAPPING.md"
+    },
+    {
+      "source": "doc:ALGORITHM_MAPPING.md",
+      "target": "concept:binary-search",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "ALGORITHM_MAPPING.md"
+    },
+    {
+      "source": "doc:ALGORITHM_MAPPING.md",
+      "target": "concept:bipartite-matching",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "ALGORITHM_MAPPING.md"
+    },
+    {
+      "source": "doc:ALGORITHM_MAPPING.md",
+      "target": "concept:bounded-tsp",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "ALGORITHM_MAPPING.md"
+    },
+    {
+      "source": "doc:ALGORITHM_MAPPING.md",
+      "target": "concept:broadcast-capacity",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "ALGORITHM_MAPPING.md"
+    },
+    {
+      "source": "doc:ALGORITHM_MAPPING.md",
+      "target": "concept:chinese-remainder-theorem",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "ALGORITHM_MAPPING.md"
+    },
+    {
+      "source": "doc:ALGORITHM_MAPPING.md",
+      "target": "concept:dijkstra",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "ALGORITHM_MAPPING.md"
+    },
+    {
+      "source": "doc:ALGORITHM_MAPPING.md",
+      "target": "concept:fixture-generation",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "ALGORITHM_MAPPING.md"
+    },
+    {
+      "source": "doc:ALGORITHM_MAPPING.md",
+      "target": "concept:floyd-warshall",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "ALGORITHM_MAPPING.md"
+    },
+    {
+      "source": "doc:ALGORITHM_MAPPING.md",
+      "target": "concept:ford-fulkerson",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "ALGORITHM_MAPPING.md"
+    },
+    {
+      "source": "doc:ALGORITHM_MAPPING.md",
+      "target": "concept:knapsack",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "ALGORITHM_MAPPING.md"
+    },
+    {
+      "source": "doc:ALGORITHM_MAPPING.md",
+      "target": "concept:kruskal",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "ALGORITHM_MAPPING.md"
+    },
+    {
+      "source": "doc:ALGORITHM_MAPPING.md",
+      "target": "concept:merge-sort",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "ALGORITHM_MAPPING.md"
+    },
+    {
+      "source": "doc:ALGORITHM_MAPPING.md",
+      "target": "concept:prim",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "ALGORITHM_MAPPING.md"
+    },
+    {
+      "source": "doc:ALGORITHM_MAPPING.md",
+      "target": "concept:string-matching",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "ALGORITHM_MAPPING.md"
+    },
+    {
+      "source": "doc:ALGORITHM_MAPPING.md",
+      "target": "concept:travel-optimization",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "ALGORITHM_MAPPING.md"
+    },
+    {
+      "source": "doc:ALGORITHM_MAPPING.md",
+      "target": "concept:venue-allocation",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "ALGORITHM_MAPPING.md"
+    },
+    {
+      "source": "doc:ARCHITECTURE.md",
+      "target": "concept:algorithm-library",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "ARCHITECTURE.md"
+    },
+    {
+      "source": "doc:ARCHITECTURE.md",
+      "target": "concept:benchmark-and-testing",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "ARCHITECTURE.md"
+    },
+    {
+      "source": "doc:ARCHITECTURE.md",
+      "target": "concept:cli-interface",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "ARCHITECTURE.md"
+    },
+    {
+      "source": "doc:ARCHITECTURE.md",
+      "target": "concept:conflict-resolver",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "ARCHITECTURE.md"
+    },
+    {
+      "source": "doc:ARCHITECTURE.md",
+      "target": "concept:data-layer",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "ARCHITECTURE.md"
+    },
+    {
+      "source": "doc:ARCHITECTURE.md",
+      "target": "concept:fairness-validator",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "ARCHITECTURE.md"
+    },
+    {
+      "source": "doc:ARCHITECTURE.md",
+      "target": "concept:fixture-generator",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "ARCHITECTURE.md"
+    },
+    {
+      "source": "doc:ARCHITECTURE.md",
+      "target": "concept:scheduling-engine",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "ARCHITECTURE.md"
+    },
+    {
+      "source": "doc:ARCHITECTURE.md",
+      "target": "concept:travel-optimizer",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "ARCHITECTURE.md"
+    },
+    {
+      "source": "doc:ARCHITECTURE.md",
+      "target": "concept:utilities",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "ARCHITECTURE.md"
+    },
+    {
+      "source": "doc:ARCHITECTURE.md",
+      "target": "concept:venue-allocator",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "ARCHITECTURE.md"
+    },
+    {
+      "source": "doc:DATA_STRUCTURES.md",
+      "target": "concept:fixture",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "DATA_STRUCTURES.md"
+    },
+    {
+      "source": "doc:DATA_STRUCTURES.md",
+      "target": "concept:mst-result",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "DATA_STRUCTURES.md"
+    },
+    {
+      "source": "doc:DATA_STRUCTURES.md",
+      "target": "concept:priority-queue",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "DATA_STRUCTURES.md"
+    },
+    {
+      "source": "doc:DATA_STRUCTURES.md",
+      "target": "concept:schedule",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "DATA_STRUCTURES.md"
+    },
+    {
+      "source": "doc:DATA_STRUCTURES.md",
+      "target": "concept:scheduling-engine",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "DATA_STRUCTURES.md"
+    },
+    {
+      "source": "doc:DATA_STRUCTURES.md",
+      "target": "concept:shortest-path-result",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "DATA_STRUCTURES.md"
+    },
+    {
+      "source": "doc:DATA_STRUCTURES.md",
+      "target": "concept:team",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "DATA_STRUCTURES.md"
+    },
+    {
+      "source": "doc:DATA_STRUCTURES.md",
+      "target": "concept:travel-graph",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "DATA_STRUCTURES.md"
+    },
+    {
+      "source": "doc:DATA_STRUCTURES.md",
+      "target": "concept:union-find",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "DATA_STRUCTURES.md"
+    },
+    {
+      "source": "doc:DATA_STRUCTURES.md",
+      "target": "concept:venue",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "DATA_STRUCTURES.md"
+    },
+    {
+      "source": "doc:IMPLEMENTATION_TIMELINE.md",
+      "target": "concept:backtracking",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "IMPLEMENTATION_TIMELINE.md"
+    },
+    {
+      "source": "doc:IMPLEMENTATION_TIMELINE.md",
+      "target": "concept:branch-and-bound",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "IMPLEMENTATION_TIMELINE.md"
+    },
+    {
+      "source": "doc:IMPLEMENTATION_TIMELINE.md",
+      "target": "concept:dijkstra",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "IMPLEMENTATION_TIMELINE.md"
+    },
+    {
+      "source": "doc:IMPLEMENTATION_TIMELINE.md",
+      "target": "concept:divide-and-conquer",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "IMPLEMENTATION_TIMELINE.md"
+    },
+    {
+      "source": "doc:IMPLEMENTATION_TIMELINE.md",
+      "target": "concept:dynamic-programming",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "IMPLEMENTATION_TIMELINE.md"
+    },
+    {
+      "source": "doc:IMPLEMENTATION_TIMELINE.md",
+      "target": "concept:ford-fulkerson",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "IMPLEMENTATION_TIMELINE.md"
+    },
+    {
+      "source": "doc:IMPLEMENTATION_TIMELINE.md",
+      "target": "concept:foundation",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "IMPLEMENTATION_TIMELINE.md"
+    },
+    {
+      "source": "doc:IMPLEMENTATION_TIMELINE.md",
+      "target": "concept:graph-algorithms",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "IMPLEMENTATION_TIMELINE.md"
+    },
+    {
+      "source": "doc:IMPLEMENTATION_TIMELINE.md",
+      "target": "concept:greedy-algorithms",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "IMPLEMENTATION_TIMELINE.md"
+    },
+    {
+      "source": "doc:IMPLEMENTATION_TIMELINE.md",
+      "target": "concept:merge-sort",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "IMPLEMENTATION_TIMELINE.md"
+    },
+    {
+      "source": "doc:IMPLEMENTATION_TIMELINE.md",
+      "target": "concept:network-flow",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "IMPLEMENTATION_TIMELINE.md"
+    },
+    {
+      "source": "doc:IMPLEMENTATION_TIMELINE.md",
+      "target": "concept:testing-and-documentation",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "IMPLEMENTATION_TIMELINE.md"
+    },
+    {
+      "source": "doc:PROJECT_OVERVIEW.md",
+      "target": "concept:algorithm-library",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "PROJECT_OVERVIEW.md"
+    },
+    {
+      "source": "doc:PROJECT_OVERVIEW.md",
+      "target": "concept:benchmark-mode",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "PROJECT_OVERVIEW.md"
+    },
+    {
+      "source": "doc:PROJECT_OVERVIEW.md",
+      "target": "concept:cli-interface",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "PROJECT_OVERVIEW.md"
+    },
+    {
+      "source": "doc:PROJECT_OVERVIEW.md",
+      "target": "concept:data-structures",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "PROJECT_OVERVIEW.md"
+    },
+    {
+      "source": "doc:PROJECT_OVERVIEW.md",
+      "target": "concept:fairness-validation",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "PROJECT_OVERVIEW.md"
+    },
+    {
+      "source": "doc:PROJECT_OVERVIEW.md",
+      "target": "concept:football-scheduling",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "PROJECT_OVERVIEW.md"
+    },
+    {
+      "source": "doc:PROJECT_OVERVIEW.md",
+      "target": "concept:scheduling-engine",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "PROJECT_OVERVIEW.md"
+    },
+    {
+      "source": "doc:PROJECT_OVERVIEW.md",
+      "target": "concept:travel-cost",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "PROJECT_OVERVIEW.md"
+    },
+    {
+      "source": "doc:TESTING_STRATEGY.md",
+      "target": "concept:benchmark-tests",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "TESTING_STRATEGY.md"
+    },
+    {
+      "source": "doc:TESTING_STRATEGY.md",
+      "target": "concept:dijkstra",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "TESTING_STRATEGY.md"
+    },
+    {
+      "source": "doc:TESTING_STRATEGY.md",
+      "target": "concept:end-to-end-tests",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "TESTING_STRATEGY.md"
+    },
+    {
+      "source": "doc:TESTING_STRATEGY.md",
+      "target": "concept:fairness-validation",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "TESTING_STRATEGY.md"
+    },
+    {
+      "source": "doc:TESTING_STRATEGY.md",
+      "target": "concept:fixture-generation",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "TESTING_STRATEGY.md"
+    },
+    {
+      "source": "doc:TESTING_STRATEGY.md",
+      "target": "concept:integration-tests",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "TESTING_STRATEGY.md"
+    },
+    {
+      "source": "doc:TESTING_STRATEGY.md",
+      "target": "concept:merge-sort",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "TESTING_STRATEGY.md"
+    },
+    {
+      "source": "doc:TESTING_STRATEGY.md",
+      "target": "concept:scenario-testing",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "TESTING_STRATEGY.md"
+    },
+    {
+      "source": "doc:TESTING_STRATEGY.md",
+      "target": "concept:travel-optimization",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "TESTING_STRATEGY.md"
+    },
+    {
+      "source": "doc:TESTING_STRATEGY.md",
+      "target": "concept:unit-tests",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "TESTING_STRATEGY.md"
+    },
+    {
+      "source": "doc:TESTING_STRATEGY.md",
+      "target": "concept:venue-allocation",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "TESTING_STRATEGY.md"
+    },
+    {
+      "source": "concept:travel-optimization",
+      "target": "concept:bellman-ford",
+      "relation": "compares_with",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "ALGORITHM_MAPPING.md"
+    },
+    {
+      "source": "concept:venue",
+      "target": "concept:travel-graph",
+      "relation": "connects_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "DATA_STRUCTURES.md"
+    },
+    {
+      "source": "concept:broadcast-capacity",
+      "target": "concept:knapsack",
+      "relation": "constrains",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "ALGORITHM_MAPPING.md"
+    },
+    {
+      "source": "concept:scheduling-engine",
+      "target": "concept:fairness-validation",
+      "relation": "drives",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "PROJECT_OVERVIEW.md"
+    },
+    {
+      "source": "concept:scheduling-engine",
+      "target": "concept:fixture-generation",
+      "relation": "drives",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "PROJECT_OVERVIEW.md"
+    },
+    {
+      "source": "concept:scheduling-engine",
+      "target": "concept:travel-optimization",
+      "relation": "drives",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "PROJECT_OVERVIEW.md"
+    },
+    {
+      "source": "concept:scheduling-engine",
+      "target": "concept:venue-allocation",
+      "relation": "drives",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "PROJECT_OVERVIEW.md"
+    },
+    {
+      "source": "concept:testing-and-documentation",
+      "target": "concept:end-to-end-tests",
+      "relation": "includes",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "IMPLEMENTATION_TIMELINE.md"
+    },
+    {
+      "source": "concept:testing-and-documentation",
+      "target": "concept:integration-tests",
+      "relation": "includes",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "IMPLEMENTATION_TIMELINE.md"
+    },
+    {
+      "source": "concept:testing-and-documentation",
+      "target": "concept:unit-tests",
+      "relation": "includes",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "IMPLEMENTATION_TIMELINE.md"
+    },
+    {
+      "source": "concept:benchmark-mode",
+      "target": "concept:benchmark-tests",
+      "relation": "measured_by",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "PROJECT_OVERVIEW.md"
+    },
+    {
+      "source": "concept:prim",
+      "target": "concept:travel-graph",
+      "relation": "operates_on",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "ALGORITHM_MAPPING.md"
+    },
+    {
+      "source": "concept:fixture-generation",
+      "target": "concept:fixture",
+      "relation": "produces",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "ALGORITHM_MAPPING.md"
+    },
+    {
+      "source": "concept:travel-graph",
+      "target": "concept:priority-queue",
+      "relation": "supports",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "DATA_STRUCTURES.md"
+    },
+    {
+      "source": "concept:kruskal",
+      "target": "concept:union-find",
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "ALGORITHM_MAPPING.md"
+    },
+    {
+      "source": "concept:travel-optimization",
+      "target": "concept:bounded-tsp",
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "ALGORITHM_MAPPING.md"
+    },
+    {
+      "source": "concept:travel-optimization",
+      "target": "concept:dijkstra",
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "ALGORITHM_MAPPING.md"
+    },
+    {
+      "source": "concept:travel-optimization",
+      "target": "concept:floyd-warshall",
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "ALGORITHM_MAPPING.md"
+    },
+    {
+      "source": "concept:venue-allocation",
+      "target": "concept:activity-selection",
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "ALGORITHM_MAPPING.md"
+    },
+    {
+      "source": "concept:fairness-validation",
+      "target": "concept:schedule",
+      "relation": "validates",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "PROJECT_OVERVIEW.md"
+    }
+  ],
+  "hyperedges": []
+}
