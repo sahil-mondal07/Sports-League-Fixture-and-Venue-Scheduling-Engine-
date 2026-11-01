@@ -11,8 +11,11 @@ FixtureSchedule* round_robin_schedule(Team* teams, int team_count,
     FixtureSchedule* schedule = (FixtureSchedule*)malloc(sizeof(FixtureSchedule));
     if (!schedule) return NULL;
 
-    int total_rounds = (team_count - 1) * 2;  // Double round-robin
-    int matches_per_round = team_count / 2;
+    // Circular rotation algorithm for round-robin
+    // Handles both even and odd team counts correctly
+    int n = team_count;
+    int total_rounds = (n - 1) * 2;  // Double round-robin (home + away)
+    int matches_per_round = n / 2;   // Integer division handles odd counts
     int total_matches = total_rounds * matches_per_round;
 
     schedule->fixtures = (Fixture*)malloc(sizeof(Fixture) * total_matches);
@@ -23,56 +26,44 @@ FixtureSchedule* round_robin_schedule(Team* teams, int team_count,
     int current_day = 0;
     Date current_date = config->start_date;
 
-    // Round-Robin algorithm: Generate all matchups
-    for (int round = 1; round <= total_rounds; round++) {
-        int matches_in_round = 0;
+    // Circular rotation algorithm
+    for (int leg = 0; leg < 2; leg++) {  // leg 0 = first half, leg 1 = return leg
+        for (int round = 0; round < n - 1; round++) {
+            int matches_in_round = 0;
 
-        // First half: Home-Away
-        if (round <= team_count - 1) {
-            // Generate first-leg matches
-            for (int i = 0; i < team_count / 2; i++) {
-                int home_team = i;
-                int away_team = team_count - 1 - i;
+            // Fixed team (team 0) stays in place, others rotate
+            for (int i = 1; i < n; i++) {
+                int opponent = n - i;
 
-                if (home_team < away_team) {
-                    // Pick venue for this match (rotate through venues)
-                    int venue_idx = (fixture_id - 1) % venue_count;
+                // Only generate each pairing once per round
+                if (i < opponent) {
+                    int home_team, away_team;
 
-                    // Create fixture
+                    if (leg == 0) {
+                        // First leg: team with lower index at home
+                        home_team = (i < opponent) ? i : opponent;
+                        away_team = (i < opponent) ? opponent : i;
+                    } else {
+                        // Second leg: reverse home/away
+                        away_team = (i < opponent) ? i : opponent;
+                        home_team = (i < opponent) ? opponent : i;
+                    }
+
+                    // Venue assignment: use home team's stadium
+                    int venue_idx = home_team % venue_count;
+
+                    // Time slot distributed across available slots
+                    int time_slot = (matches_in_round % 3) + 1;
+
                     Fixture fixture;
                     fixture.id = fixture_id++;
-                    fixture.round = round;
+                    fixture.round = (leg * (n - 1)) + round + 1;
                     fixture.home_team_id = home_team;
                     fixture.away_team_id = away_team;
                     fixture.venue_id = venue_idx;
                     fixture.day = current_day;
                     fixture.match_date = current_date;
-                    fixture.time_slot = (fixture.id % 3) + 1;  // 3 time slots
-                    fixture.travel_cost = 0.0;  // Will be calculated later
-                    fixture.is_valid = TRUE;
-
-                    schedule->fixtures[schedule->count++] = fixture;
-                    matches_in_round++;
-                }
-            }
-        } else {
-            // Generate second-leg matches (reverse)
-            for (int i = 0; i < team_count / 2; i++) {
-                int home_team = team_count - 1 - i;
-                int away_team = i;
-
-                if (away_team < home_team) {
-                    int venue_idx = (fixture_id - 1) % venue_count;
-
-                    Fixture fixture;
-                    fixture.id = fixture_id++;
-                    fixture.round = round;
-                    fixture.home_team_id = home_team;
-                    fixture.away_team_id = away_team;
-                    fixture.venue_id = venue_idx;
-                    fixture.day = current_day;
-                    fixture.match_date = current_date;
-                    fixture.time_slot = (fixture.id % 3) + 1;
+                    fixture.time_slot = time_slot;
                     fixture.travel_cost = 0.0;
                     fixture.is_valid = TRUE;
 
@@ -80,11 +71,11 @@ FixtureSchedule* round_robin_schedule(Team* teams, int team_count,
                     matches_in_round++;
                 }
             }
-        }
 
-        // Move to next matchday after rest days
-        current_day += (config->min_rest_days + 1);
-        current_date = add_days(&current_date, config->min_rest_days + 1);
+            // Move to next matchday after rest days
+            current_day += (config->min_rest_days + 1);
+            current_date = add_days(&current_date, config->min_rest_days + 1);
+        }
     }
 
     return schedule;

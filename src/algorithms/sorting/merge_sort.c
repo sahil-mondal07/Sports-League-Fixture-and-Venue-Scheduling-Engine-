@@ -24,8 +24,8 @@ void merge_teams(Team* teams, int left, int mid, int right) {
     int i = 0, j = 0, k = left;
 
     while (i < left_size && j < right_size) {
-        // Compare rankings (lower ranking = better = should come first)
-        if (left_arr[i].ranking <= right_arr[j].ranking) {
+        // Sort descending: higher ranking (better team) comes first
+        if (left_arr[i].ranking >= right_arr[j].ranking) {
             teams[k++] = left_arr[i++];
         } else {
             teams[k++] = right_arr[j++];
