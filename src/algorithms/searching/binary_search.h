@@ -26,18 +26,25 @@ int binary_search_fixture_by_day_iterative(Fixture* fixtures, int count, int tar
 // Returns index if found, -1 if not found
 int binary_search_iterative(int* arr, int count, int target);
 
-// ============ RECURSIVE BINARY SEARCH ============
+// ============ RECURSIVE BINARY SEARCH (NO MALLOC) ============
 
-// Search for a fixture by round (recursive wrapper)
-int binary_search_fixture_by_round_recursive(Fixture* fixtures, int count, int target_round);
-
-// Search for a fixture by day (recursive wrapper)
-int binary_search_fixture_by_day_recursive(Fixture* fixtures, int count, int target_day);
-
-// Generic recursive binary search helper
-// left, right = search bounds (inclusive)
+// Search for a fixture by round (recursive, operates directly on fixtures array)
 // Returns index if found, -1 if not found
-int binary_search_recursive_helper(int* arr, int left, int right, int target);
+int binary_search_fixture_by_round_recursive(Fixture* fixtures, int left, int right, int target_round);
+
+// Search for a fixture by day (recursive, operates directly on fixtures array)
+// Returns index if found, -1 if not found
+int binary_search_fixture_by_day_recursive(Fixture* fixtures, int left, int right, int target_day);
+
+// ============ FIRST/LAST OCCURRENCE VARIANTS ============
+
+// Find first occurrence of target in sorted array (for duplicates)
+// Returns index of first occurrence, -1 if not found
+int binary_search_first_occurrence(Fixture* fixtures, int count, int target_round);
+
+// Find last occurrence of target in sorted array (for duplicates)
+// Returns index of last occurrence, -1 if not found
+int binary_search_last_occurrence(Fixture* fixtures, int count, int target_round);
 
 // ============ UTILITY FUNCTIONS ============
 

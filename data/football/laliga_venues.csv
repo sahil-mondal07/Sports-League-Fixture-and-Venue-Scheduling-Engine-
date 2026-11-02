@@ -1,6 +1,6 @@
 id,name,city,lat,lon,capacity
 0,Santiago Bernabeu,Madrid,40.4530,-3.6883,81044
-1,Camp Nou,Barcelona,41.3809,-2.1228,99354
+1,Camp Nou,Barcelona,41.3809,2.1228,99354
 2,Civitas Metropolitano,Madrid,40.4362,-3.5995,68456
 3,Reale Arena,San Sebastian,43.3012,-1.9735,39500
 4,San Mames,Bilbao,43.2641,-2.9493,53289
@@ -9,13 +9,13 @@ id,name,city,lat,lon,capacity
 7,Mestalla,Valencia,39.4747,-0.3585,49430
 8,Ramon Sanchez Pizjuan,Seville,37.3838,-5.9706,43883
 9,El Sadar,Pamplona,42.7968,-1.6368,23576
-10,Montilivi,Girona,41.9617,-2.8264,14624
+10,Montilivi,Girona,41.9617,2.8264,14624
 11,Vallecas,Madrid,40.3920,-3.6587,14708
 12,Coliseum Alfonso Perez,Getafe,40.3255,-3.7148,17393
 13,Gran Canaria,Las Palmas,28.0999,-15.4493,31250
-14,Son Moix,Palma,39.5901,-2.6308,23142
+14,Son Moix,Palma,39.5901,2.6308,23142
 15,Balaidos,Vigo,42.2116,-8.7397,29000
 16,Mendizorroza,Vitoria,42.8403,-2.6867,19840
-17,RCDE Stadium,Barcelona,41.3479,-2.0752,40500
+17,RCDE Stadium,Barcelona,41.3479,2.0752,40500
 18,Butarque,Leganes,40.3403,-3.7648,12450
 19,Jose Zorrilla,Valladolid,41.6444,-4.7610,27846

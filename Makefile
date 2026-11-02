@@ -25,7 +25,9 @@ SOURCES = $(SRC_DIR)/main.c \
           $(UTILS_DIR)/common.c \
           $(ALGO_DIR)/greedy/round_robin.c \
           $(ALGO_DIR)/sorting/merge_sort.c \
+          $(ALGO_DIR)/sorting/quick_sort.c \
           $(ALGO_DIR)/searching/binary_search.c \
+          $(ALGO_DIR)/graph/dijkstra.c \
           $(SCHED_DIR)/validator.c
 
 # Object files
@@ -40,6 +42,7 @@ directories:
 	@mkdir -p $(BUILD_DIR)/algorithms/greedy
 	@mkdir -p $(BUILD_DIR)/algorithms/sorting
 	@mkdir -p $(BUILD_DIR)/algorithms/searching
+	@mkdir -p $(BUILD_DIR)/algorithms/graph
 	@mkdir -p $(BUILD_DIR)/scheduling
 	@mkdir -p $(BUILD_DIR)/utils
 	@mkdir -p $(BIN_DIR)
@@ -77,7 +80,7 @@ help:
 	@echo "  make help     - Show this help message"
 
 # Test targets
-test: test-round-robin test-validator
+test: test-round-robin test-validator test-time-slots test-dijkstra
 	@echo "✓ All tests completed"
 
 test-round-robin: directories
@@ -99,4 +102,21 @@ test-validator: directories
 	@echo "Running validator tests..."
 	@./$(BUILD_DIR)/test_validator
 
-.PHONY: all directories run clean rebuild help test test-round-robin test-validator
+test-time-slots: directories
+	@echo "Building time-slots tests..."
+	@$(CC) $(CFLAGS) tests/test_time_slots.c \
+		$(DATA_DIR)/team.c $(DATA_DIR)/venue.c $(DATA_DIR)/fixture.c \
+		$(UTILS_DIR)/common.c $(ALGO_DIR)/greedy/round_robin.c \
+		-lm -o $(BUILD_DIR)/test_time_slots
+	@echo "Running time-slots tests..."
+	@./$(BUILD_DIR)/test_time_slots
+
+test-dijkstra: directories
+	@echo "Building dijkstra tests..."
+	@$(CC) $(CFLAGS) tests/test_dijkstra.c \
+		$(DATA_DIR)/graph.c $(UTILS_DIR)/common.c $(ALGO_DIR)/graph/dijkstra.c \
+		-lm -o $(BUILD_DIR)/test_dijkstra
+	@echo "Running dijkstra tests..."
+	@./$(BUILD_DIR)/test_dijkstra
+
+.PHONY: all directories run clean rebuild help test test-round-robin test-validator test-time-slots test-dijkstra

@@ -70,54 +70,97 @@ int binary_search_iterative(int* arr, int count, int target) {
 }
 
 // ============================================================================
-// RECURSIVE BINARY SEARCH IMPLEMENTATIONS
+// RECURSIVE BINARY SEARCH (NO MALLOC - OPERATES DIRECTLY ON FIXTURES)
 // ============================================================================
 
-// Helper for recursive binary search
-int binary_search_recursive_helper(int* arr, int left, int right, int target) {
-    if (left > right) {
-        return -1;  // Not found
+// Search for a fixture by round (recursive, no malloc)
+// Recurses directly on the fixtures array
+int binary_search_fixture_by_round_recursive(Fixture* fixtures, int left, int right, int target_round) {
+    // Base case: not found
+    if (left > right || !fixtures) {
+        return -1;
     }
 
     int mid = left + (right - left) / 2;
 
-    if (arr[mid] == target) {
+    if (fixtures[mid].round == target_round) {
         return mid;  // Found
-    } else if (arr[mid] < target) {
-        return binary_search_recursive_helper(arr, mid + 1, right, target);
+    } else if (fixtures[mid].round < target_round) {
+        // Search right half
+        return binary_search_fixture_by_round_recursive(fixtures, mid + 1, right, target_round);
     } else {
-        return binary_search_recursive_helper(arr, left, mid - 1, target);
+        // Search left half
+        return binary_search_fixture_by_round_recursive(fixtures, left, mid - 1, target_round);
     }
 }
 
-// Search for a fixture by round (recursive wrapper)
-int binary_search_fixture_by_round_recursive(Fixture* fixtures, int count, int target_round) {
-    if (!fixtures || count <= 0) return -1;
-
-    // Convert fixture rounds to array for recursive search
-    int* rounds = (int*)malloc(count * sizeof(int));
-    for (int i = 0; i < count; i++) {
-        rounds[i] = fixtures[i].round;
+// Search for a fixture by day (recursive, no malloc)
+// Recurses directly on the fixtures array
+int binary_search_fixture_by_day_recursive(Fixture* fixtures, int left, int right, int target_day) {
+    // Base case: not found
+    if (left > right || !fixtures) {
+        return -1;
     }
 
-    int result = binary_search_recursive_helper(rounds, 0, count - 1, target_round);
-    free(rounds);
+    int mid = left + (right - left) / 2;
+
+    if (fixtures[mid].day == target_day) {
+        return mid;  // Found
+    } else if (fixtures[mid].day < target_day) {
+        // Search right half
+        return binary_search_fixture_by_day_recursive(fixtures, mid + 1, right, target_day);
+    } else {
+        // Search left half
+        return binary_search_fixture_by_day_recursive(fixtures, left, mid - 1, target_day);
+    }
+}
+
+// ============================================================================
+// FIRST/LAST OCCURRENCE VARIANTS (FOR DUPLICATES)
+// ============================================================================
+
+// Find first occurrence of target_round in sorted fixtures array
+int binary_search_first_occurrence(Fixture* fixtures, int count, int target_round) {
+    if (!fixtures || count <= 0) return -1;
+
+    int left = 0, right = count - 1;
+    int result = -1;
+
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+
+        if (fixtures[mid].round == target_round) {
+            result = mid;  // Found, but keep searching left for first occurrence
+            right = mid - 1;
+        } else if (fixtures[mid].round < target_round) {
+            left = mid + 1;
+        } else {
+            right = mid - 1;
+        }
+    }
 
     return result;
 }
 
-// Search for a fixture by day (recursive wrapper)
-int binary_search_fixture_by_day_recursive(Fixture* fixtures, int count, int target_day) {
+// Find last occurrence of target_round in sorted fixtures array
+int binary_search_last_occurrence(Fixture* fixtures, int count, int target_round) {
     if (!fixtures || count <= 0) return -1;
 
-    // Convert fixture days to array for recursive search
-    int* days = (int*)malloc(count * sizeof(int));
-    for (int i = 0; i < count; i++) {
-        days[i] = fixtures[i].day;
-    }
+    int left = 0, right = count - 1;
+    int result = -1;
 
-    int result = binary_search_recursive_helper(days, 0, count - 1, target_day);
-    free(days);
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+
+        if (fixtures[mid].round == target_round) {
+            result = mid;  // Found, but keep searching right for last occurrence
+            left = mid + 1;
+        } else if (fixtures[mid].round < target_round) {
+            left = mid + 1;
+        } else {
+            right = mid - 1;
+        }
+    }
 
     return result;
 }
@@ -163,21 +206,20 @@ void demo_binary_search(Fixture* fixtures, int count) {
     int result1 = binary_search_fixture_by_round_iterative(fixtures, count, round_to_find);
     print_binary_search_result(fixtures, result1, round_to_find, "Round (Iterative)");
 
-    // Test 2: Search by Round (Recursive)
-    printf("[TEST 2] Recursive Search by Round\n");
-    int result2 = binary_search_fixture_by_round_recursive(fixtures, count, round_to_find);
+    // Test 2: Search by Round (Recursive - no malloc)
+    printf("[TEST 2] Recursive Search by Round (No Malloc)\n");
+    int result2 = binary_search_fixture_by_round_recursive(fixtures, 0, count - 1, round_to_find);
     print_binary_search_result(fixtures, result2, round_to_find, "Round (Recursive)");
 
-    // Test 3: Search by Day (Iterative)
-    printf("[TEST 3] Iterative Search by Day\n");
-    int day_to_find = fixtures[count / 3].day;
-    int result3 = binary_search_fixture_by_day_iterative(fixtures, count, day_to_find);
-    print_binary_search_result(fixtures, result3, day_to_find, "Day (Iterative)");
+    // Test 3: First Occurrence
+    printf("[TEST 3] First Occurrence of Round %d\n", round_to_find);
+    int result3 = binary_search_first_occurrence(fixtures, count, round_to_find);
+    print_binary_search_result(fixtures, result3, round_to_find, "First Occurrence");
 
-    // Test 4: Search by Day (Recursive)
-    printf("[TEST 4] Recursive Search by Day\n");
-    int result4 = binary_search_fixture_by_day_recursive(fixtures, count, day_to_find);
-    print_binary_search_result(fixtures, result4, day_to_find, "Day (Recursive)");
+    // Test 4: Last Occurrence
+    printf("[TEST 4] Last Occurrence of Round %d\n", round_to_find);
+    int result4 = binary_search_last_occurrence(fixtures, count, round_to_find);
+    print_binary_search_result(fixtures, result4, round_to_find, "Last Occurrence");
 
     // Test 5: Not Found Case
     printf("[TEST 5] Search for Non-Existent Round\n");

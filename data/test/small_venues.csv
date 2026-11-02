@@ -1,5 +1,5 @@
 id,name,city,lat,lon,capacity
 0,Camp Nou,Barcelona,41.3809,2.1228,99354
-1,Santiago Bernabeu,Madrid,40.4530,3.6883,81044
-2,Wanda Metropolitano,Madrid,40.4362,3.5995,68456
-3,Ramon Sanchez Pizjuan,Seville,37.3838,5.9706,43883
+1,Santiago Bernabeu,Madrid,40.4530,-3.6883,81044
+2,Wanda Metropolitano,Madrid,40.4362,-3.5995,68456
+3,Ramon Sanchez Pizjuan,Seville,37.3838,-5.9706,43883

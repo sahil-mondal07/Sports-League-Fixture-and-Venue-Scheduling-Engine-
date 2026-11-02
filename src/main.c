@@ -10,6 +10,7 @@
 #include "algorithms/greedy/round_robin.h"
 #include "algorithms/sorting/merge_sort.h"
 #include "algorithms/searching/binary_search.h"
+#include "algorithms/graph/dijkstra.h"
 
 // Global data structures
 Team* teams = NULL;
@@ -491,6 +492,90 @@ void test_algorithms() {
     printf("========================================================\n");
 }
 
+void find_shortest_routes_dijkstra() {
+    if (!venues || venue_count == 0) {
+        printf("\nERROR: No venues loaded. Load data first (option 1 or 2).\n");
+        return;
+    }
+
+    printf("\n========================================================\n");
+    printf("DIJKSTRA'S ALGORITHM - Shortest Route Between Venues\n");
+    printf("========================================================\n");
+    printf("Available Venues:\n");
+    for (int i = 0; i < venue_count; i++) {
+        printf("  [%d] %-25s (%s)\n", venues[i].id, venues[i].name, venues[i].city);
+    }
+
+    int src, dest;
+    printf("\nEnter Source Venue ID: ");
+    if (scanf("%d", &src) != 1 || src < 0 || src >= venue_count) {
+        printf("ERROR: Invalid source venue ID.\n");
+        while (getchar() != '\n');
+        return;
+    }
+
+    printf("Enter Destination Venue ID: ");
+    if (scanf("%d", &dest) != 1 || dest < 0 || dest >= venue_count) {
+        printf("ERROR: Invalid destination venue ID.\n");
+        while (getchar() != '\n');
+        return;
+    }
+    getchar(); // Clear trailing newline
+
+    /* Build venue graph from distance matrix or Haversine */
+    Graph* g = create_graph(venue_count);
+    if (!g) {
+        printf("ERROR: Could not allocate venue graph.\n");
+        return;
+    }
+
+    for (int i = 0; i < venue_count; i++) {
+        for (int j = i + 1; j < venue_count; j++) {
+            float dist = 0.0f;
+            if (distance_matrix && i < team_count && j < team_count) {
+                dist = (float)distance_matrix[i][j];
+            } else {
+                dist = (float)calculate_distance(venues[i].latitude, venues[i].longitude,
+                                                 venues[j].latitude, venues[j].longitude);
+            }
+            if (dist > 0.0f) {
+                add_undirected_edge(g, i, j, dist);
+            }
+        }
+    }
+
+    /* Run Dijkstra from source */
+    DijkstraResult* res = dijkstra_shortest_path(g, src);
+    if (!res) {
+        printf("ERROR: Dijkstra computation failed.\n");
+        free_graph(g);
+        return;
+    }
+
+    printf("\n--- Shortest Path Result ---\n");
+    printf("From: [%d] %s (%s)\n", src, venues[src].name, venues[src].city);
+    printf("To:   [%d] %s (%s)\n", dest, venues[dest].name, venues[dest].city);
+
+    if (res->dist[dest] >= DIJKSTRA_INF) {
+        printf("Status: UNREACHABLE (no road/flight route connected)\n");
+    } else {
+        printf("Total Distance: %.2f km\n", res->dist[dest]);
+        int* path = (int*)malloc(sizeof(int) * venue_count);
+        int path_len = dijkstra_get_path(res, dest, path);
+
+        printf("Optimal Route (%d steps): ", path_len);
+        for (int i = 0; i < path_len; i++) {
+            printf("%s%s", venues[path[i]].name, (i == path_len - 1) ? "" : " -> ");
+        }
+        printf("\n");
+        free(path);
+    }
+    printf("----------------------------\n");
+
+    free_dijkstra_result(res);
+    free_graph(g);
+}
+
 void show_menu() {
     printf("\n");
     printf("================================================\n");
@@ -509,12 +594,12 @@ void show_menu() {
     printf("  6. Display distance matrix\n");
     printf("  7. Display tournament config\n");
     printf("\n");
-    printf("ALGORITHMS (WEEK 1 COMPLETE):\n");
+    printf("ALGORITHMS:\n");
     printf("  8. Test All Algorithms (Merge Sort, Round-Robin, Binary Search)\n");
+    printf("  9. Find shortest route between venues (Dijkstra)\n");
     printf("\n");
-    printf("COMING SOON:\n");
-    printf("  9. Optimize travel distances (Dijkstra)\n");
-    printf("  10. Find shortest routes\n");
+    printf("COMING SOON (WEEK 2):\n");
+    printf("  10. Full tournament travel optimizer (minimize total league fatigue)\n");
     printf("\n");
     printf("  0. Exit\n");
     printf("\n");
@@ -566,10 +651,10 @@ int main() {
                 test_algorithms();
                 break;
             case 9:
-                printf("\nWARNING: Feature not yet implemented. Coming in Week 2!\n");
+                find_shortest_routes_dijkstra();
                 break;
             case 10:
-                printf("\nWARNING: Feature not yet implemented. Coming in Week 2!\n");
+                printf("\nWARNING: Full tournament travel optimizer coming in Week 2!\n");
                 break;
             case 0:
                 printf("\nCleaning up...\n");

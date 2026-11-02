@@ -5,7 +5,7 @@ id,name,city,lat,lon,capacity
 3,Sinan Erdem Dome,Istanbul,40.9934,29.0375,16000
 4,OAKA Indoor Hall,Athens,38.0375,23.7847,18989
 5,Peace and Friendship Stadium,Piraeus,37.9464,23.6648,14500
-6,WiZink Center,Madrid,40.4222,3.6739,15000
+6,WiZink Center,Madrid,40.4222,-3.6739,15000
 7,Palau Blaugrana,Barcelona,41.3806,2.1224,7585
 8,Audi Dome,Munich,48.1752,11.5445,6700
 9,Menora Mivtachim Arena,Tel Aviv,32.1128,34.8364,10300
