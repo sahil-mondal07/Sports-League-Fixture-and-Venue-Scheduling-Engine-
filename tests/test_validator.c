@@ -1032,6 +1032,94 @@ int test_past_end_date() {
 }
 
 // ============================================================================
+// TEST 15: Team plays twice in round
+// ============================================================================
+int test_team_twice_in_round() {
+    printf("\n========================================================\n");
+    printf("TEST 15: TEAM TWICE IN ROUND\n");
+    printf("========================================================\n");
+
+    int n = 4;
+    Team* teams = (Team*)malloc(sizeof(Team) * n);
+    Venue* venues = (Venue*)malloc(sizeof(Venue) * n);
+
+    for (int i = 0; i < n; i++) {
+        teams[i].id = i;
+        sprintf(teams[i].name, "Team%d", i);
+        teams[i].ranking = i + 1;
+        teams[i].points = 0;
+
+        venues[i].id = i;
+        sprintf(venues[i].name, "Venue%d", i);
+        venues[i].capacity = 50000;
+        venues[i].is_available = TRUE;
+        venues[i].latitude = 0.0f;
+        venues[i].longitude = 0.0f;
+    }
+
+    TournamentConfig config;
+    config.start_date.day = 1;
+    config.start_date.month = 1;
+    config.start_date.year = 2026;
+    config.end_date.day = 31;
+    config.end_date.month = 12;
+    config.end_date.year = 2026;
+    config.min_rest_days = 1;
+    config.matches_per_week = 2;
+
+    FixtureSchedule* sched = round_robin_schedule(teams, n, venues, n, &config);
+    if (!sched || sched->count < 2) {
+        printf("FAIL: Failed to generate valid schedule\n");
+        free(teams);
+        free(venues);
+        if (sched) free_fixture_schedule(sched);
+        return 0;
+    }
+
+    /* Make team 0 play twice in round 1 */
+    int round1_count = 0;
+    for (int i = 0; i < sched->count; i++) {
+        if (sched->fixtures[i].round == 1) {
+            round1_count++;
+            if (round1_count == 2) {
+                sched->fixtures[i].home_team_id = 0;
+                break;
+            }
+        }
+    }
+
+    ValidationOptions opts;
+    opts.min_capacity = 0;
+    opts.require_full_double_rr = 0;
+
+    ValidationReport report;
+    report.items = NULL;
+    report.count = 0;
+    report.capacity = 0;
+
+    validate_schedule(sched->fixtures, sched->count, n, venues, n, &config, &opts, &report);
+
+    int pass = 0;
+    for (int i = 0; i < report.count; i++) {
+        if (report.items[i].type == VIOL_TEAM_TWICE_IN_ROUND) {
+            printf("PASS: Team twice in round detected - %s\n", report.items[i].message);
+            pass = 1;
+            break;
+        }
+    }
+
+    if (!pass) {
+        printf("FAIL: Expected VIOL_TEAM_TWICE_IN_ROUND\n");
+    }
+
+    free_validation_report(&report);
+    free_fixture_schedule(sched);
+    free(teams);
+    free(venues);
+    return pass;
+}
+
+// ============================================================================
 // MAIN
 // ============================================================================
 int main() {
@@ -1057,6 +1145,7 @@ int main() {
     if (!test_missing_pair()) fail_count++; else pass_count++;
     if (!test_home_away_imbalance()) fail_count++; else pass_count++;
     if (!test_past_end_date()) fail_count++; else pass_count++;
+    if (!test_team_twice_in_round()) fail_count++; else pass_count++;
 
     printf("\n");
     printf("========================================================\n");

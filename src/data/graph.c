@@ -66,7 +66,6 @@ void free_graph(Graph* g) {
     free(g->adj_list);
     free(g);
 }
-
 DistanceMatrix* create_distance_matrix(int size) {
     DistanceMatrix* dm = (DistanceMatrix*)malloc(sizeof(DistanceMatrix));
     if (!dm) return NULL;

@@ -31,7 +31,6 @@ void merge_teams(Team* teams, int left, int mid, int right) {
             teams[k++] = right_arr[j++];
         }
     }
-
     // Copy remaining elements from left array
     while (i < left_size) {
         teams[k++] = left_arr[i++];

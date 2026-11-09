@@ -28,7 +28,10 @@ SOURCES = $(SRC_DIR)/main.c \
           $(ALGO_DIR)/sorting/quick_sort.c \
           $(ALGO_DIR)/searching/binary_search.c \
           $(ALGO_DIR)/graph/dijkstra.c \
-          $(SCHED_DIR)/validator.c
+          $(ALGO_DIR)/graph/prim.c \
+          $(SRC_DIR)/benchmark/benchmark.c \
+          $(SCHED_DIR)/validator.c \
+          $(SCHED_DIR)/travel_optimizer.c
 
 # Object files
 OBJECTS = $(SOURCES:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
@@ -43,6 +46,7 @@ directories:
 	@mkdir -p $(BUILD_DIR)/algorithms/sorting
 	@mkdir -p $(BUILD_DIR)/algorithms/searching
 	@mkdir -p $(BUILD_DIR)/algorithms/graph
+	@mkdir -p $(BUILD_DIR)/benchmark
 	@mkdir -p $(BUILD_DIR)/scheduling
 	@mkdir -p $(BUILD_DIR)/utils
 	@mkdir -p $(BIN_DIR)
@@ -80,7 +84,7 @@ help:
 	@echo "  make help     - Show this help message"
 
 # Test targets
-test: test-round-robin test-validator test-time-slots test-dijkstra
+test: test-round-robin test-validator test-time-slots test-dijkstra test-travel test-prim test-quick-sort test-binary-search
 	@echo "✓ All tests completed"
 
 test-round-robin: directories
@@ -119,4 +123,41 @@ test-dijkstra: directories
 	@echo "Running dijkstra tests..."
 	@./$(BUILD_DIR)/test_dijkstra
 
-.PHONY: all directories run clean rebuild help test test-round-robin test-validator test-time-slots test-dijkstra
+test-travel: directories
+	@echo "Building travel tests..."
+	@$(CC) $(CFLAGS) tests/test_travel.c \
+		$(DATA_DIR)/team.c $(DATA_DIR)/venue.c $(DATA_DIR)/fixture.c \
+		$(DATA_DIR)/graph.c $(DATA_DIR)/loader.c $(UTILS_DIR)/common.c \
+		$(ALGO_DIR)/greedy/round_robin.c $(SCHED_DIR)/travel_optimizer.c \
+		-lm -o $(BUILD_DIR)/test_travel
+	@echo "Running travel tests..."
+	@./$(BUILD_DIR)/test_travel
+
+test-prim: directories
+	@echo "Building prim tests..."
+	@$(CC) $(CFLAGS) tests/test_prim.c \
+		$(DATA_DIR)/graph.c $(DATA_DIR)/venue.c $(UTILS_DIR)/common.c \
+		$(ALGO_DIR)/graph/prim.c \
+		-lm -o $(BUILD_DIR)/test_prim
+	@echo "Running prim tests..."
+	@./$(BUILD_DIR)/test_prim
+
+test-quick-sort: directories
+	@echo "Building quick-sort tests..."
+	@$(CC) $(CFLAGS) tests/test_quick_sort.c \
+		$(DATA_DIR)/team.c $(DATA_DIR)/fixture.c $(UTILS_DIR)/common.c \
+		$(ALGO_DIR)/sorting/quick_sort.c \
+		-lm -o $(BUILD_DIR)/test_quick_sort
+	@echo "Running quick-sort tests..."
+	@./$(BUILD_DIR)/test_quick_sort
+
+test-binary-search: directories
+	@echo "Building binary-search tests..."
+	@$(CC) $(CFLAGS) tests/test_binary_search.c \
+		$(DATA_DIR)/fixture.c $(UTILS_DIR)/common.c \
+		$(ALGO_DIR)/searching/binary_search.c \
+		-lm -o $(BUILD_DIR)/test_binary_search
+	@echo "Running binary-search tests..."
+	@./$(BUILD_DIR)/test_binary_search
+
+.PHONY: all directories run clean rebuild help test test-round-robin test-validator test-time-slots test-dijkstra test-travel test-prim test-quick-sort test-binary-search
