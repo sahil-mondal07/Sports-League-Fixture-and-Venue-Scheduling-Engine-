@@ -2,19 +2,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-/* Helper: compute prefix sums of probabilities for O(1) range weight */
-static double prefix_sum(const double* p, int n) {
-    /* prefix[k] = sum of p[1..k], with prefix[0] = 0 */
-    double* prefix = (double*)calloc((size_t)(n + 1), sizeof(double));
-    if (!prefix) return -1.0;
-    for (int k = 1; k <= n; k++) {
-        prefix[k] = prefix[k - 1] + p[k];
-    }
-    double result = prefix[n];
-    free(prefix);
-    return result;
-}
-
 double optimal_bst(const double* p, int n, double* out_weight, int* out_root) {
     if (n <= 0 || !p) {
         if (out_weight) *out_weight = 0.0;
@@ -58,7 +45,7 @@ double optimal_bst(const double* p, int n, double* out_weight, int* out_root) {
         root[i] = (int*)calloc((size_t)(n + 2), sizeof(int));
         if (!e[i] || !root[i]) {
             /* Free all so far */
-            for (int k = 0; k < i; k++) {
+            for (int k = 0; k <= i; k++) {
                 free(e[k]);
                 free(root[k]);
             }
@@ -111,31 +98,30 @@ double optimal_bst(const double* p, int n, double* out_weight, int* out_root) {
         }
     }
 
-    /* Set outputs */
-    if (out_weight) *out_weight = prefix_sum(p, n);  /* sum p[1..n] */
+    /* Compute total weight */
+    double total_weight = 0.0;
+    for (int k = 1; k <= n; k++) {
+        total_weight += p[k];
+    }
+    if (out_weight) *out_weight = total_weight;
 
     if (out_root) {
         /* out_root[k] = root of optimal BST containing keys 1..k */
-        /* For k = 0, root[0] = 0 */
-        if (n >= 1) out_root[0] = 0;
-        if (n >= 1) out_root[1] = 1;  /* single key, root is key 1 */
-
-        /* Fill out_root for k = 2..n using the root table */
-        /* The root table root[i][j] gives the root for subtree i..j.
-           We want out_root[k] = root of optimal BST for keys 1..k.
-           This is root[1][k]. */
-        for (int k = 2; k <= n; k++) {
+        out_root[0] = 0;
+        for (int k = 1; k <= n; k++) {
             out_root[k] = root[1][k];
         }
     }
 
+    double result_cost = e[1][n];
+
     /* Free tables */
-    for (int i = 1; i <= n + 1; i++) {
+    for (int i = 0; i <= n + 1; i++) {
         free(e[i]);
         free(root[i]);
     }
     free(e);
     free(root);
 
-    return e[1][n];
+    return result_cost;
 }
