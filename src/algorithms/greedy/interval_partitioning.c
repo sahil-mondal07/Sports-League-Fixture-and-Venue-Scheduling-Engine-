@@ -29,10 +29,13 @@ int interval_partition(const IntervalActivity* activities, int count,
     if (!sorted) return -1;
     memcpy(sorted, activities, sizeof(IntervalActivity) * count);
 
-    /* Sort activities by finish time ascending (earliest finish first) */
+    /* Sort activities by start time ascending (earliest start first).
+       The optimal greedy interval partitioning sorts by start time.
+       Sorting by finish time (as originally coded) can use more resources
+       than necessary in some cases. */
     for (int i = 0; i < count - 1; i++) {
         for (int j = i + 1; j < count; j++) {
-            if (sorted[i].finish_time > sorted[j].finish_time) {
+            if (sorted[i].start_time > sorted[j].start_time) {
                 IntervalActivity tmp = sorted[i];
                 sorted[i] = sorted[j];
                 sorted[j] = tmp;

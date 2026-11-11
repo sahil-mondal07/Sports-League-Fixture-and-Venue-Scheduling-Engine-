@@ -1,5 +1,6 @@
 #include "crt.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 /* Extended Euclidean Algorithm */
 static long long extended_gcd(long long a, long long b, long long* x, long long* y) {
@@ -22,9 +23,12 @@ static long long mod_inverse(long long a, long long m) {
     if (gcd != 1) {
         return -1; /* inverse does not exist */
     }
-    return (x % m + m) % m;
+    /* Ensure positive result */
+    long long result = (x % m + m) % m;
+    return result;
 }
 
+/* Chinese Remainder Theorem */
 CRTResult chinese_remainder_theorem(const long long* remainders, const long long* moduli, int k) {
     CRTResult res;
     res.x = -1;
@@ -35,9 +39,13 @@ CRTResult chinese_remainder_theorem(const long long* remainders, const long long
         return res;
     }
 
-    long long prod = 1;
+    /* Check for non-positive moduli */
     for (int i = 0; i < k; i++) {
         if (moduli[i] <= 0) return res;
+    }
+
+    long long prod = 1;
+    for (int i = 0; i < k; i++) {
         prod *= moduli[i];
     }
 
@@ -46,12 +54,12 @@ CRTResult chinese_remainder_theorem(const long long* remainders, const long long
         long long ni = prod / moduli[i];
         long long yi = mod_inverse(ni, moduli[i]);
         if (yi == -1) {
-            return res; /* moduli are not coprime */
+            return res; /* moduli are not pairwise coprime */
         }
         x = (x + remainders[i] * ni * yi) % prod;
     }
 
-    res.x = (x + prod) % prod;
+    res.x = (x % prod + prod) % prod;
     res.mod = prod;
     res.success = 1;
     return res;

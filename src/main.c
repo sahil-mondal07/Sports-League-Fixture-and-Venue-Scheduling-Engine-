@@ -11,6 +11,7 @@
 #include "algorithms/sorting/merge_sort.h"
 #include "algorithms/searching/binary_search.h"
 #include "algorithms/graph/dijkstra.h"
+#include "gui.h"
 
 // Global data structures
 Team* teams = NULL;
@@ -598,8 +599,11 @@ void show_menu() {
     printf("  8. Test All Algorithms (Merge Sort, Round-Robin, Binary Search)\n");
     printf("  9. Find shortest route between venues (Dijkstra)\n");
     printf("\n");
+    printf("VALIDATION & SCHEDULING:\n");
+    printf("  10. Schedule Validation & GUI Quick Test (Validator)\n");
+    printf("\n");
     printf("COMING SOON (WEEK 2):\n");
-    printf("  10. Full tournament travel optimizer (minimize total league fatigue)\n");
+    printf("  11. Full tournament travel optimizer (minimize total league fatigue)\n");
     printf("\n");
     printf("  0. Exit\n");
     printf("\n");
@@ -654,6 +658,10 @@ int main() {
                 find_shortest_routes_dijkstra();
                 break;
             case 10:
+                gui_welcome_banner();
+                gui_quick_test();
+                break;
+            case 11:
                 printf("\nWARNING: Full tournament travel optimizer coming in Week 2!\n");
                 break;
             case 0:

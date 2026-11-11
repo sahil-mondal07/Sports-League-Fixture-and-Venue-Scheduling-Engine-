@@ -27,11 +27,9 @@ int knapsack_01(int capacity, const KnapsackItem* items, int n, int* selected_ou
 
     /* choice[w] = which item added at capacity w (or -1 if none) */
     /* We'll use a simpler approach: after filling dp, traceback through
-       the items in reverse to determine which were selected. */
-    /* Actually, let's use a 2D-friendly approach with 1D arrays:
-       parent[w] stores the item index that improved dp[w] */
-    int* parent = (int*)calloc((size_t)(capacity + 1), sizeof(int));
-    if (!parent) { free(dp); return 0; }
+       the items in forward order to determine which were selected. */
+    int* choice = (int*)calloc((size_t)(capacity + 1), sizeof(int));
+    if (!choice) { free(dp); return 0; }
 
     /* ------------------------------------------------------------
      * Standard 0/1 knapsack: iterate items, iterate capacity backwards
@@ -42,7 +40,7 @@ int knapsack_01(int capacity, const KnapsackItem* items, int n, int* selected_ou
             int prev = dp[w - items[i].weight] + items[i].value;
             if (prev > dp[w]) {
                 dp[w] = prev;
-                parent[w] = i;  /* record that item i was chosen at capacity w */
+                choice[w] = i;  /* record that item i was chosen at capacity w */
             }
             w--;
         }
@@ -50,48 +48,36 @@ int knapsack_01(int capacity, const KnapsackItem* items, int n, int* selected_ou
 
     /* ------------------------------------------------------------
      * Traceback: determine which items were selected.
-     * Start from dp[capacity] and trace backwards through parent.
+     * Start from dp[capacity] and trace backwards through choice.
+     * Return value saved before freeing.
      * ------------------------------------------------------------ */
+    /* Save the result before freeing */
+    int result = dp[capacity];
+
     /* Reset selected_out to all 0s */
     if (selected_out) {
         memset(selected_out, 0, (size_t)n * sizeof(int));
     }
 
-    /* Walk backwards from full capacity */
+    /* Walk backwards from full capacity using choice array */
     int w = capacity;
-    /* We'll collect selected item indices in a temporary set,
-       then mark them in selected_out. */
-    int* selected_idx = (int*)malloc((size_t)n * sizeof(int));
-    if (!selected_idx) { free(dp); free(parent); return 0; }
-    int sel_count = 0;
-
-    /* Traceback: repeatedly find which item was chosen at current w.
-       Since parent[w] stores the item index that gave dp[w],
-       we can follow: item = parent[w]; then w -= items[item].weight;
-       but we must be careful not to revisit the same item.
-       Simpler: iterate items from n-1 down to 0, check if dp[w]
-       could have been achieved by including this item. */
-    for (int i = n - 1; i >= 0; i--) {
-        if (w >= items[i].weight) {
-            int prev = dp[w - items[i].weight] + items[i].value;
-            if (prev == dp[w]) {
-                /* Item i was included in an optimal solution */
-                if (selected_out) selected_out[i] = 1;
-                /* consume this item's weight */
-                w -= items[i].weight;
-                selected_idx[sel_count++] = i;
-            }
+    while (w > 0) {
+        int c = choice[w];
+        if (c >= 0 && c < n) {
+            /* Item c was included in the optimal solution */
+            if (selected_out) selected_out[c] = 1;
+            /* Move w back by the weight of item c */
+            w -= items[c].weight;
+        } else {
+            /* No item chosen at this weight; try smaller w */
+            w--;
         }
     }
 
-    free(selected_idx);
+    free(choice);
     free(dp);
-    free(parent);
 
-    /* The traceback above may not always select the exact same
-       items that produced dp[capacity] due to the iteration order,
-       but it produces a valid optimal selection. Return the max value. */
-    return dp[capacity];
+    return result;
 }
 
 /* ------------------------------------------------------------

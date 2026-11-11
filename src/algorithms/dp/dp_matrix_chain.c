@@ -71,37 +71,84 @@ int matrix_chain_order(const int* p, int n, int* out_selected_out) {
 
     /* ----------------------------------------------------------
      * Handle out_selected_out if provided.
-     * The s table stores split points. For the top-level call
-     * (i=1, j=n), s[1][n] gives the first split.
-     * We'll trace and fill selected_out.
+     * The s table stores split points. We need to trace through
+     * all subproblems to collect the full set of splits.
      * ---------------------------------------------------------- */
     if (out_selected_out) {
-        /* We need to extract the split points in a usable form.
-           The s table is indexed [i][j] where i,j are 1..n.
-           For our purposes, we'll fill out_selected_out with the
-           top-level splits at each recursion level.
-           Simpler approach: fill out_selected_out[0..n-2] with
-           the split points from the top-level splits of each
-           subproblem when traced in order.
-        */
-        /* Let's just record the top-level split at each level.
-           We'll do a recursive trace filling out_selected_out. */
-        /* Since we can't easily recurses without a helper, let's
-           just put the top-level split in out_selected_out[0]. */
-        if (n - 1 >= 1) {
-            out_selected_out[0] = MATRIX(s, 1, n, size);
-        }
-        /* Fill remaining with 0 (no split) */
-        for (int i = 1; i < n - 1; i++) {
-            out_selected_out[i] = 0;
+        /* We'll trace all splits recursively and store them.
+           out_selected_out has room for n-1 split points (one per
+           internal node in the binary tree of the chain). */
+        int* splits = (int*)malloc((size_t)(n - 1) * sizeof(int));
+        if (splits) {
+            /* Trace all splits using a stack-based approach */
+            /* We process subproblems (i, j) and collect s[i][j] */
+            int split_count = 0;
+            /* Stack of (i, j) pairs to process */
+            int* stack_i = (int*)malloc((size_t)(n * n) * sizeof(int));
+            int* stack_j = (int*)malloc((size_t)(n * n) * sizeof(int));
+            if (stack_i && stack_j) {
+                int si = 0; /* stack index */
+                stack_i[si] = 1;
+                stack_j[si] = n;
+                si++;
+
+                while (si > 0) {
+                    si--;
+                    int cur_i = stack_i[si];
+                    int cur_j = stack_j[si];
+
+                    if (cur_i < cur_j) {
+                        int k = (int)MATRIX(s, cur_i, cur_j, size);
+                        if (split_count < n - 1) {
+                            splits[split_count++] = k;
+                        }
+                        /* Push right half first, then left half */
+                        stack_i[si] = k + 1;
+                        stack_j[si] = cur_j;
+                        si++;
+                        stack_i[si] = cur_i;
+                        stack_j[si] = k;
+                        si++;
+                    }
+                }
+            }
+
+            /* Copy splits to out_selected_out */
+            int copy_count = split_count;
+            if (copy_count > n - 1) copy_count = n - 1;
+            for (int i = 0; i < copy_count; i++) {
+                out_selected_out[i] = splits[i];
+            }
+            /* Fill remaining with 0 */
+            for (int i = copy_count; i < n - 1; i++) {
+                out_selected_out[i] = 0;
+            }
+
+            free(stack_i);
+            free(stack_j);
+            free(splits);
+        } else {
+            /* Fallback: just put the top-level split */
+            if (n - 1 >= 1) {
+                out_selected_out[0] = (int)MATRIX(s, 1, n, size);
+            }
+            for (int i = 1; i < n - 1; i++) {
+                out_selected_out[i] = 0;
+            }
         }
     }
 
     free(m);
     free(s);
 
-    /* Return the minimum cost: m[1][n] */
-    return MATRIX(m, 1, n, size);
+    /* Return the minimum cost: we computed it during DP, return m[1][n] value */
+    /* We need to save it before freeing - let's restructure */
+    int result = MATRIX(m, 1, n, size);  /* Read before free */
+
+    free(m);
+    free(s);
+
+    return result;
 }
 
 /* ----------------------------------------------------------
@@ -110,11 +157,6 @@ int matrix_chain_order(const int* p, int n, int* out_selected_out) {
 void matrix_chain_print_optimal_parens(int n, const int* s, const char* name) {
     if (n <= 0 || !name) return;
 
-    /* Recursive helper to print parentheses */
-    /* We'll use an iterative approach with the s table. */
-    /* s[i][j] stores the split point k for subproblem i..j. */
-
-    /* We'll print using the standard divide-and-conquer approach. */
     printf("Matrix Chain Multiplication Order:\n");
 
     /* Iterative trace using a stack of (i, j) pairs */
@@ -154,13 +196,9 @@ void matrix_chain_print_optimal_parens(int n, const int* s, const char* name) {
                 stack[top].j = j;
                 top++;
             }
-            /* We'll just print the left part's opening and the right part */
-            /* Actually, let's restructure: print left, then recurse, then right */
-            /* Simpler: just use recursion via a function */
-            free(stack);
-            return;
         }
     }
 
+    printf("\n");
     free(stack);
 }

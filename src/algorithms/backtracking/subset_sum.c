@@ -88,8 +88,27 @@ SubsetSumResultSet solve_subset_sum(const int* values, int n, int target, int fi
     res.count = 0;
     res.capacity = 0;
 
-    if (!values || n <= 0 || target <= 0) {
-        return res;
+    if (!values || n <= 0) {
+        SubsetSumResultSet empty_res;
+        empty_res.solutions = NULL;
+        empty_res.count = 0;
+        empty_res.capacity = 0;
+        return empty_res;
+    }
+
+    /* Special case: target 0 - the empty set is always a valid solution */
+    if (target == 0) {
+        SubsetSumResultSet empty_res;
+        empty_res.solutions = (SubsetSumSolution*)malloc(sizeof(SubsetSumSolution));
+        if (empty_res.solutions) {
+            empty_res.solutions[0].count = 0;
+            empty_res.solutions[0].indices = NULL;
+            empty_res.solutions[0].values = NULL;
+            empty_res.solutions[0].sum = 0;
+        }
+        empty_res.count = 1;
+        empty_res.capacity = 1;
+        return empty_res;
     }
 
     res.capacity = SUBSET_SUM_INIT_CAP;

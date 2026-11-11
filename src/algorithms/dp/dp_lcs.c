@@ -15,7 +15,7 @@ int lcs_length(const int* seq1, int m, const int* seq2, int n,
     if (m <= 0 || n <= 0 || !seq1 || !seq2) {
         if (out_length) *out_length = 0;
         if (out_selected_out) memset(out_selected_out, 0, (size_t)m * sizeof(int));
-        return -1;
+        return 0;  /* LCS of empty sequence is 0, not -1 */
     }
 
     /* dp[j] will represent the LCS length for current row i..j.

@@ -182,9 +182,22 @@ void huffman_tree_generate_codes(HuffmanNode* root,
     if (!root || n <= 0) return;
 
     char empty_prefix[1] = { '\0' };
+
+    /* Initialize code_lens to 0 first */
     memset(code_lens, 0, sizeof(int) * n);
 
     codes_gen_traverse(root, 0, empty_prefix, codes, code_lens, n);
+
+    /* Now compute the actual code lengths from the generated codes.
+       Since codes[node->id] has the null-terminated code string,
+       compute its length. */
+    for (int i = 0; i < n; i++) {
+        if (code_lens[i] == 0 && codes[i][0] != '\0') {
+            /* Compute length of the code string */
+            int len = (int)strlen(codes[i]);
+            code_lens[i] = len;
+        }
+    }
 }
 
 /* ------------------------------------------------------------

@@ -48,4 +48,6 @@ void print_validation_report(const ValidationReport* r);
 
 void free_validation_report(ValidationReport* r);
 
+const char* violation_name(ViolationType type);
+
 #endif

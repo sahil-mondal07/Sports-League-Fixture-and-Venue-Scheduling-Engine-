@@ -3,7 +3,7 @@
 
 #include "../../utils/common.h"
 
-#define MAX_MATCH_RESULTS 100
+#define MAX_MATCH_RESULTS 10000
 
 /**
  * @brief Result structure for string matching positions.
