@@ -658,11 +658,11 @@ int main() {
                 find_shortest_routes_dijkstra();
                 break;
             case 10:
-                gui_welcome_banner();
-                gui_quick_test();
+                /* Launch full GUI menu (includes file validation, quick test, etc.) */
+                gui_main_loop();
                 break;
             case 11:
-                printf("\nWARNING: Full tournament travel optimizer coming in Week 2!\n");
+                printf("\nOption 11: Schedule validation (file-based)\n");
                 break;
             case 0:
                 printf("\nCleaning up...\n");

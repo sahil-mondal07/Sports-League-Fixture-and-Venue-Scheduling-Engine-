@@ -44,6 +44,7 @@ int test_empty_schedule() {
     report.capacity = 0;
 
     int violations = validate_schedule(NULL, 0, 2, venues, 2, &config, &opts, &report);
+    (void)violations;
 
     if (violations == 0) {
         printf("PASS: Empty schedule returns 0 violations\n");
@@ -108,6 +109,7 @@ int test_out_of_range_team_id() {
     report.capacity = 0;
 
     int violations = validate_schedule(fixtures, 1, 2, venues, 2, &config, &opts, &report);
+    (void)violations;
 
     int pass = 0;
     for (int i = 0; i < report.count; i++) {
@@ -179,6 +181,7 @@ int test_out_of_range_venue_id() {
     report.capacity = 0;
 
     int violations = validate_schedule(fixtures, 1, 2, venues, 2, &config, &opts, &report);
+    (void)violations;
 
     int pass = 0;
     for (int i = 0; i < report.count; i++) {
@@ -283,6 +286,7 @@ int test_large_schedule_violation() {
     report.capacity = 0;
 
     int violations = validate_schedule(fixtures_dup, schedule->count + 1, n, venues, n, &config, &opts, &report);
+    (void)violations;
 
     int pass = 0;
     for (int i = 0; i < report.count; i++) {
@@ -366,6 +370,7 @@ int test_1000_plus_violations() {
     report.capacity = 0;
 
     int violations = validate_schedule(fixtures, fixture_count, n, venues, 1, &config, &opts, &report);
+    (void)violations;
 
     if (violations >= 1000) {
         printf("PASS: Generated %d violations (>=1000)\n", violations);
