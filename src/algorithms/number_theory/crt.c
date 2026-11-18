@@ -1,6 +1,7 @@
 #include "crt.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 
 /* Extended Euclidean Algorithm */
 static long long extended_gcd(long long a, long long b, long long* x, long long* y) {
@@ -44,19 +45,41 @@ CRTResult chinese_remainder_theorem(const long long* remainders, const long long
         if (moduli[i] <= 0) return res;
     }
 
+    /* Compute product of moduli with overflow check */
     long long prod = 1;
     for (int i = 0; i < k; i++) {
-        prod *= moduli[i];
+        if (__builtin_mul_overflow(prod, moduli[i], &prod)) {
+            /* Overflow detected - return failure */
+            res.success = 0;
+            return res;
+        }
     }
 
-    long long x = 0;
+    /* Pairwise-coprime CRT accumulation; reduce each product modulo prod. */
+    unsigned long long modulus = (unsigned long long)prod;
+    unsigned long long x = 0;
     for (int i = 0; i < k; i++) {
         long long ni = prod / moduli[i];
         long long yi = mod_inverse(ni, moduli[i]);
-        if (yi == -1) {
-            return res; /* moduli are not pairwise coprime */
+        if (yi == -1) return res;
+        unsigned long long a = (unsigned long long)((remainders[i] % prod + prod) % prod);
+        unsigned long long b = (unsigned long long)ni;
+        unsigned long long term = 0;
+        /* Overflow-safe modular multiplication by repeated doubling. */
+        while (b) {
+            if (b & 1ULL) term = term >= modulus - a ? term - (modulus - a) : term + a;
+            a = a >= modulus - a ? a - (modulus - a) : a + a;
+            b >>= 1;
         }
-        x = (x + remainders[i] * ni * yi) % prod;
+        b = (unsigned long long)yi;
+        a = term;
+        term = 0;
+        while (b) {
+            if (b & 1ULL) term = term >= modulus - a ? term - (modulus - a) : term + a;
+            a = a >= modulus - a ? a - (modulus - a) : a + a;
+            b >>= 1;
+        }
+        x = x >= modulus - term ? x - (modulus - term) : x + term;
     }
 
     res.x = (x % prod + prod) % prod;

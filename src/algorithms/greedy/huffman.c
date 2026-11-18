@@ -178,24 +178,28 @@ static void codes_gen_traverse(HuffmanNode* node, int depth,
 }
 
 void huffman_tree_generate_codes(HuffmanNode* root,
-                                 char codes[][64], int* code_lens, int n) {
+                                 char codes[][64], int* code_lens, int n,
+                                 int alphabet_size) {
     if (!root || n <= 0) return;
-
-    char empty_prefix[1] = { '\0' };
 
     /* Initialize code_lens to 0 first */
     memset(code_lens, 0, sizeof(int) * n);
 
-    codes_gen_traverse(root, 0, empty_prefix, codes, code_lens, n);
-
-    /* Now compute the actual code lengths from the generated codes.
-       Since codes[node->id] has the null-terminated code string,
-       compute its length. */
+    /* Initialize codes to empty */
     for (int i = 0; i < n; i++) {
-        if (code_lens[i] == 0 && codes[i][0] != '\0') {
-            /* Compute length of the code string */
-            int len = (int)strlen(codes[i]);
-            code_lens[i] = len;
+        codes[i][0] = '\0';
+    }
+
+    /* Generate codes by traversing the tree */
+    codes_gen_traverse(root, 0, NULL, codes, code_lens, n);
+
+    /* Ensure all symbols have code_lens > 0 by setting defaults.
+       For any symbol without a code (e.g., single-symbol case), set code "0" length 1. */
+    for (int i = 0; i < n; i++) {
+        if (code_lens[i] <= 0) {
+            code_lens[i] = 1;
+            codes[i][0] = '0';
+            codes[i][1] = '\0';
         }
     }
 }
@@ -205,15 +209,15 @@ void huffman_tree_generate_codes(HuffmanNode* root,
  * ------------------------------------------------------------ */
 
 char* huffman_encode(const int* ids, int n, const int* code_lens,
-                     const char codes[][64], int* out_len) {
+                     const char codes[][64], int alphabet_size, int* out_len) {
     if (!ids || n <= 0 || !code_lens || !codes || !out_len) return NULL;
 
     /* Compute total encoded bit count */
     int total_bits = 0;
     for (int i = 0; i < n; i++) {
         int cid = ids[i];
-        if (cid < 0 || cid >= n) continue;
-        if (code_lens[cid] <= 0) continue;
+        /* Skip symbol if invalid: negative, >= alphabet_size, or no code */
+        if (cid < 0 || cid >= alphabet_size || code_lens[cid] <= 0) continue;
         total_bits += code_lens[cid];
     }
 
@@ -271,13 +275,16 @@ int* huffman_decode(HuffmanNode* root, const char* encoded, int encoded_len,
     int bit_pos = 0;  /* 0..7 position within current byte */
 
     HuffmanNode* current = root;
-    while (count < encoded_len && byte_pos < total_bytes) {
-        /* Get the current bit */
+    /* Iterate over BITS in the encoded stream, not decoded symbols.
+       Process exactly the number of bits (ceiling of bytes * 8). */
+    int max_bits = (encoded_len + 7) / 8 * 8;
+    while (count < max_bits && byte_pos < (encoded_len + 7) / 8) {
+        /* Get the current bit (MSB first) */
         if (bit_pos >= 8) {
             bit_pos = 0;
             byte_pos++;
         }
-        if (byte_pos >= total_bytes) break;
+        if (byte_pos >= (encoded_len + 7) / 8) break;
 
         char bit = (encoded[byte_pos] >> (7 - bit_pos)) & 1 ? '1' : '0';
         bit_pos++;

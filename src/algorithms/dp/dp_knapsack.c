@@ -1,128 +1,83 @@
 #include "dp_knapsack.h"
 #include <stdlib.h>
-#include <stdio.h>
+#include <string.h>
 
 /* ------------------------------------------------------------
- * Internal: bottom-up DP table. Uses 1D array for space efficiency.
- * dp[w] = maximum value achievable with weight limit w.
- * We also track the selection via a parallel "keep" array or by
- * traceback after the DP table is full. Here we use the simpler
- * 2D-esque traceback using a 1D dp and a "choice" array.
+ * 0/1 Knapsack with 2-D DP table and proper item selection traceback.
  * ------------------------------------------------------------ */
 
 int knapsack_01(int capacity, const KnapsackItem* items, int n, int* selected_out) {
+    /* Validate inputs */
     if (capacity <= 0 || items == NULL || n <= 0) {
         if (selected_out) memset(selected_out, 0, (size_t)n * sizeof(int));
         return 0;
     }
 
-    if (items == NULL || n <= 0) {
-        if (selected_out) memset(selected_out, 0, (size_t)n * sizeof(int));
-        return 0;
-    }
-
-    /* dp[w] = max value achievable with capacity w */
-    int* dp = (int*)calloc((size_t)(capacity + 1), sizeof(int));
-    if (!dp) return 0;
-
-    /* choice[w] = which item added at capacity w (or -1 if none) */
-    /* We'll use a simpler approach: after filling dp, traceback through
-       the items in forward order to determine which were selected. */
-    int* choice = (int*)calloc((size_t)(capacity + 1), sizeof(int));
-    if (!choice) { free(dp); return 0; }
-
-    /* ------------------------------------------------------------
-     * Standard 0/1 knapsack: iterate items, iterate capacity backwards
-     * ------------------------------------------------------------ */
+    /* Reject any item with negative weight.
+       Items with weight 0 and value > 0 are handled separately. */
     for (int i = 0; i < n; i++) {
-        int w = capacity;
-        while (w >= items[i].weight) {
-            int prev = dp[w - items[i].weight] + items[i].value;
-            if (prev > dp[w]) {
-                dp[w] = prev;
-                choice[w] = i;  /* record that item i was chosen at capacity w */
+        if (items[i].weight < 0) {
+            /* Reject item with negative weight - treat as unavailable */
+            /* Reset selected_out to all zeros and return 0 */
+            if (selected_out) memset(selected_out, 0, (size_t)n * sizeof(int));
+            return 0;
+        }
+    }
+
+    /* Build 2-D DP table: t[i][w] = max value using items 0..i-1 with capacity w */
+    int* t = (int*)calloc((size_t)(n + 1) * (capacity + 1), sizeof(int));
+    if (!t) return 0;
+
+    /* Fill the DP table */
+    for (int i = 1; i <= n; i++) {
+        const KnapsackItem* item = &items[i - 1];
+        int weight_i = item->weight;
+        int value_i = item->value;
+
+        for (int w = 0; w <= capacity; w++) {
+            /* Option 1: don't include item i-1 */
+            int val1 = t[(i - 1) * (capacity + 1) + w];
+
+            /* Option 2: include item i-1, if it fits */
+            int val2 = 0;
+            if (weight_i <= w && weight_i >= 0) {
+                val2 = t[(i - 1) * (capacity + 1) + (w - weight_i)] + value_i;
+            } else if (weight_i == 0 && value_i > 0) {
+                /* Weight 0, value > 0: always include, add value regardless of w */
+                val2 = t[(i - 1) * (capacity + 1) + w] + value_i;
             }
-            w--;
+
+            t[i * (capacity + 1) + w] = val1 > val2 ? val1 : val2;
         }
     }
 
-    /* ------------------------------------------------------------
-     * Traceback: determine which items were selected.
-     * Start from dp[capacity] and trace backwards through choice.
-     * Return value saved before freeing.
-     * ------------------------------------------------------------ */
     /* Save the result before freeing */
-    int result = dp[capacity];
+    int result = n > 0 && capacity >= 0 ? t[n * (capacity + 1) + capacity] : 0;
 
-    /* Reset selected_out to all 0s */
-    if (selected_out) {
-        memset(selected_out, 0, (size_t)n * sizeof(int));
-    }
+    /* Traceback: determine which items were selected.
+       Start from i=n, w=capacity. If t[i][w] != t[i-1][w], item i-1 is selected. */
+    /* Reset selected_out to all 0s first */
+    if (selected_out) memset(selected_out, 0, (size_t)n * sizeof(int));
 
-    /* Walk backwards from full capacity using choice array */
     int w = capacity;
-    while (w > 0) {
-        int c = choice[w];
-        if (c >= 0 && c < n) {
-            /* Item c was included in the optimal solution */
-            if (selected_out) selected_out[c] = 1;
-            /* Move w back by the weight of item c */
-            w -= items[c].weight;
-        } else {
-            /* No item chosen at this weight; try smaller w */
-            w--;
+    for (int i = n; i > 0 && w >= 0; i--) {
+        int val_without = t[(i - 1) * (capacity + 1) + w];
+        int val_with = t[i * (capacity + 1) + w];
+
+        if (val_with > val_without) {
+            /* Item i-1 was selected */
+            if (selected_out) selected_out[i - 1] = 1;
+            /* Move w back by the weight of item i-1 */
+            const KnapsackItem* item = &items[i - 1];
+            w -= item->weight;
+            if (w < 0) w = 0; /* Clamp to avoid negative */
         }
+        /* else: item i-1 was not selected, w stays the same */
     }
 
-    free(choice);
-    free(dp);
+    free(t);
 
     return result;
 }
 
-/* ------------------------------------------------------------
- * Print the knapsack solution.
- * ------------------------------------------------------------ */
-void knapsack_print_solution(int capacity, const KnapsackItem* items, int n,
-                             const int* selected, int total_value, int total_weight) {
-    if (!items || n <= 0) {
-        printf("No items to display.\n");
-        return;
-    }
-
-    printf("=== Knapsack Solution ===\n");
-    printf("Capacity: %d\n", capacity);
-    printf("\nItems (id=value:weight):\n");
-    for (int i = 0; i < n; i++) {
-        printf("  %d: %d:%d  ->  %s\n",
-               items[i].id, items[i].value, items[i].weight,
-               (selected && selected[i]) ? "SELECTED" : "not selected");
-    }
-
-    printf("\nResults:\n");
-    if (total_value >= 0) printf("  Total value: %d\n", total_value);
-    else {
-        /* recompute if not provided */
-        int computed_value = 0, computed_weight = 0;
-        for (int i = 0; i < n; i++) {
-            if (selected && selected[i]) {
-                computed_value += items[i].value;
-                computed_weight += items[i].weight;
-            }
-        }
-        printf("  Total value: %d (computed)\n", computed_value);
-        printf("  Total weight: %d / %d (selected / capacity)\n", computed_weight, capacity);
-    }
-
-    if (total_weight >= 0) printf("  Total weight: %d / %d\n", total_weight, capacity);
-    else printf("  Total weight: computed from selected items\n");
-
-    /* Feasibility check */
-    if (total_weight <= capacity) {
-        printf("  Status: FEASIBLE - all selected items fit within capacity\n");
-    } else {
-        printf("  Status: INFEASIBLE - selected items exceed capacity\n");
-    }
-
-    printf("========================\n");
-}
+/*------------------------------------------------------------*/

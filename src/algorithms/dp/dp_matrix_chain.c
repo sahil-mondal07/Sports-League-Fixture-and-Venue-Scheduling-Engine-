@@ -69,8 +69,7 @@ int matrix_chain_order(const int* p, int n, int* out_selected_out) {
         }
     }
 
-    /* ----------------------------------------------------------
-     * Handle out_selected_out if provided.
+    /* Handle out_selected_out if provided.
      * The s table stores split points. We need to trace through
      * all subproblems to collect the full set of splits.
      * ---------------------------------------------------------- */
@@ -128,77 +127,18 @@ int matrix_chain_order(const int* p, int n, int* out_selected_out) {
             free(stack_j);
             free(splits);
         } else {
-            /* Fallback: just put the top-level split */
-            if (n - 1 >= 1) {
-                out_selected_out[0] = (int)MATRIX(s, 1, n, size);
-            }
-            for (int i = 1; i < n - 1; i++) {
+            /* If malloc failed, fill with zeros */
+            for (int i = 0; i < n - 1; i++) {
                 out_selected_out[i] = 0;
             }
         }
     }
 
-    free(m);
-    free(s);
-
-    /* Return the minimum cost: we computed it during DP, return m[1][n] value */
-    /* We need to save it before freeing - let's restructure */
-    int result = MATRIX(m, 1, n, size);  /* Read before free */
+    int result = MATRIX(m, 1, n, size);
 
     free(m);
     free(s);
 
+    /* Return the minimum cost: we computed it during DP */
     return result;
-}
-
-/* ----------------------------------------------------------
- * Print the optimal parenthesization.
- * ---------------------------------------------------------- */
-void matrix_chain_print_optimal_parens(int n, const int* s, const char* name) {
-    if (n <= 0 || !name) return;
-
-    printf("Matrix Chain Multiplication Order:\n");
-
-    /* Iterative trace using a stack of (i, j) pairs */
-    /* Max depth is n, so a small stack is fine */
-    typedef struct {
-        int i;
-        int j;
-    } Range;
-
-    Range* stack = (Range*)malloc((size_t)n * sizeof(Range));
-    if (!stack) return;
-
-    int top = 0;
-    stack[top].i = 1;
-    stack[top].j = n;
-    top++;
-
-    while (top > 0) {
-        top--;
-        int i = stack[top].i;
-        int j = stack[top].j;
-
-        if (i == j) {
-            printf("%s%d", name, i);
-        } else {
-            int k = (s) ? s[i * (n + 1) + j] : i; /* default split */
-            /* Print left half */
-            printf("(");
-            /* Push right half first, then left half (so left processes first) */
-            if (top + 1 < n) {
-                stack[top].i = i;
-                stack[top].j = k;
-                top++;
-            }
-            if (top + 1 < n) {
-                stack[top].i = k + 1;
-                stack[top].j = j;
-                top++;
-            }
-        }
-    }
-
-    printf("\n");
-    free(stack);
 }

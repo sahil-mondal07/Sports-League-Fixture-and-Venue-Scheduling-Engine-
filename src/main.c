@@ -610,7 +610,24 @@ void show_menu() {
     printf("Choice: ");
 }
 
-int main() {
+int main(int argc, char** argv) {
+    /* Desktop window is the default; keep original CLI behind --cli. */
+    if (argc == 1 || (argc > 1 && strcmp(argv[1], "--gui") == 0)) {
+#ifdef _WIN32
+        int gui_status = system("python gui_dashboard.py");
+#else
+        int gui_status = system("python3 gui_dashboard.py");
+#endif
+        if (gui_status != 0) {
+            fprintf(stderr, "GUI launch failed. Install Python 3 with Tkinter and run from the PBL directory.\nUse --cli for terminal mode.\n");
+            return 1;
+        }
+        return 0;
+    }
+    if (strcmp(argv[1], "--cli") != 0) {
+        fprintf(stderr, "Usage: %s [--gui | --cli]\n", argv[0]);
+        return 2;
+    }
     int choice;
 
     printf("\n");
@@ -658,8 +675,9 @@ int main() {
                 find_shortest_routes_dijkstra();
                 break;
             case 10:
-                /* Launch full GUI menu (includes file validation, quick test, etc.) */
-                gui_main_loop();
+                /* Launch Python diff window GUI */
+                printf("Launching Python diff window GUI...\n");
+                system("python gui_diff.py");
                 break;
             case 11:
                 printf("\nOption 11: Schedule validation (file-based)\n");

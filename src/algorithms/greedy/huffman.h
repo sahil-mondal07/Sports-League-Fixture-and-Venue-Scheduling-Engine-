@@ -44,23 +44,27 @@ HuffmanNode* huffman_tree_build(const int* ids, const unsigned* freqs, int n);
  * @param codes Output array of code strings (each allocated via malloc).
  *             Caller must free each string and the array.
  * @param num_codes Number of codes returned (matches the original n).
+ * @param alphabet_size Valid symbols are 0..alphabet_size-1; codes outside this range are skipped.
  */
 void huffman_tree_generate_codes(HuffmanNode* root,
-                                 char codes[][64], int* code_lens, int n);
+                                 char codes[][64], int* code_lens, int n,
+                                 int alphabet_size);
 
 /**
  * @brief Encode a sequence of fixture pattern IDs using the generated codes.
  *
- * @param ids Array of pattern IDs to encode.
- * @param n Number of IDs.
+ * @param ids Array of pattern IDs to encode
+ * @param n Number of IDs
  * @param code_lens Array of code lengths (from huffman_tree_generate_codes).
  * @param codes Array of code strings (from huffman_tree_generate_codes).
+ * @param alphabet_size Valid symbols are 0..alphabet_size-1;
+ *      a symbol is skipped if cid < 0 || cid >= alphabet_size || code_lens[cid] <= 0
  * @param out_len Output: total encoded bit length (in bits/bytes, implementation-defined).
  * @return char* Encoded bitstream (heap-allocated, caller frees). Laid out as
  *                 consecutive bits packed into bytes; the last byte may be partially filled.
  */
 char* huffman_encode(const int* ids, int n, const int* code_lens,
-                     const char codes[][64], int* out_len);
+                     const char codes[][64], int alphabet_size, int* out_len);
 
 /**
  * @brief Decode a Huffman-encoded bitstream back to pattern IDs.

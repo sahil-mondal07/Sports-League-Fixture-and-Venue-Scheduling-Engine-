@@ -4,6 +4,8 @@
  * ------------------------------------------------------------ */
 #include "gui.h"
 #include "scheduling/validator.h"
+#include "data/team.h"
+#include "data/venue.h"
 #include <stdio.h>
 #include <stdlib.h>
 

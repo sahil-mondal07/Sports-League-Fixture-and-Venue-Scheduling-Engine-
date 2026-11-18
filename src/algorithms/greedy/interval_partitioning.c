@@ -3,91 +3,87 @@
 #include <string.h>
 
 /* ------------------------------------------------------------
- * Helper: find the first resource that is free by the time
- * this activity starts.  A resource's "last finish time"
- * is tracked in an array; if it's <= activity.start_time,
- * the resource becomes free.
+ * Comparison function for qsort: sort by start time ascending.
+ * If start times are equal, sort by finish time ascending.
  * ------------------------------------------------------------ */
-static int find_first_free_resource(int* resource_last_finish, int num_resources,
-                                    int activity_start) {
-    for (int r = 0; r < num_resources; r++) {
-        if (resource_last_finish[r] <= activity_start) {
-            return r;
-        }
-    }
-    return -1;  /* No resource is free; a new one must be allocated */
+static int cmp_start_asc(const void* a, const void* b) {
+    const IntervalActivity* pa = (const IntervalActivity*)a;
+    const IntervalActivity* pb = (const IntervalActivity*)b;
+    if (pa->start_time < pb->start_time) return -1;
+    if (pa->start_time > pb->start_time) return 1;
+    return (pa->finish_time < pb->finish_time) ? -1 : (pa->finish_time > pb->finish_time) ? 1 : 0;
 }
+
+/* ------------------------------------------------------------
+ * Interval partitioning (greedy).
+ * Sort intervals by start time ascending.
+ * Assign each interval to a resource whose last finish time is <= its start.
+ * Intervals that only touch (finish == start) do not overlap.
+ * The number of resources produced equals the maximum overlap depth.
+ * ------------------------------------------------------------ */
 
 int interval_partition(const IntervalActivity* activities, int count,
                        int* resources_out) {
     if (!activities || count <= 0) return 0;
 
-    /* Make a copy we can sort, qsort is not in-place on the caller's ordering requirement.
-       We'll sort indices to keep original order mapping intact, but for simplicity
-       we just allocate a copy, sort it, and then apply assignment. */
+    /* Make a copy and sort by start time ascending */
     IntervalActivity* sorted = (IntervalActivity*)malloc(sizeof(IntervalActivity) * count);
     if (!sorted) return -1;
     memcpy(sorted, activities, sizeof(IntervalActivity) * count);
 
-    /* Sort activities by start time ascending (earliest start first).
-       The optimal greedy interval partitioning sorts by start time.
-       Sorting by finish time (as originally coded) can use more resources
-       than necessary in some cases. */
-    for (int i = 0; i < count - 1; i++) {
-        for (int j = i + 1; j < count; j++) {
-            if (sorted[i].start_time > sorted[j].start_time) {
-                IntervalActivity tmp = sorted[i];
-                sorted[i] = sorted[j];
-                sorted[j] = tmp;
-            }
-        }
+    qsort(sorted, (size_t)count, sizeof(IntervalActivity), cmp_start_asc);
+
+    /* Track original indices after sort, so resources_out maps back correctly.
+     * Original index i -> sorted position maps via this array. */
+    typedef struct {
+        int original_idx;
+        IntervalActivity act;
+    } MappedActivity;
+
+    MappedActivity* mapped = (MappedActivity*)malloc(sizeof(MappedActivity) * count);
+    if (!mapped) { free(sorted); return -1; }
+
+    for (int i = 0; i < count; i++) {
+        mapped[i].original_idx = i;
+        mapped[i].act = sorted[i];
     }
 
+    free(sorted);
+
     /* Resource tracking: resource_last_finish[r] = when resource r last finishes */
-    /* We'll start with no resources and dynamically grow. */
     int num_resources = 0;
     int* resource_last_finish = NULL;
 
     for (int i = 0; i < count; i++) {
-        int start = sorted[i].start_time;
-        int finish = sorted[i].finish_time;
+        int act_idx = mapped[i].original_idx;
+        int start = mapped[i].act.start_time;
+        int finish = mapped[i].act.finish_time;
 
-        if (!resource_last_finish) {
-            /* First activity gets resource 0 */
-            resource_last_finish = (int*)malloc(sizeof(int));
-            if (!resource_last_finish) { free(sorted); return -1; }
-            resource_last_finish[0] = finish;
-            if (resources_out) resources_out[i] = 0;
-            num_resources = 1;
-            continue;
+        /* Try to assign to an existing resource whose last finish <= start.
+         * Intervals that only touch (finish == start) do not overlap. */
+        int assigned = 0;
+        for (int r = 0; r < num_resources; r++) {
+            if (resource_last_finish[r] <= start) {
+                /* This resource is free; assign the interval to it */
+                resource_last_finish[r] = finish;
+                if (resources_out) resources_out[act_idx] = r;
+                assigned = 1;
+                break;
+            }
         }
 
-        /* Try to assign to an existing free resource */
-        int free_idx = find_first_free_resource(resource_last_finish, num_resources, start);
-        if (free_idx >= 0) {
-            resource_last_finish[free_idx] = finish;
-            if (resources_out) resources_out[i] = free_idx;
-        } else {
+        if (!assigned) {
             /* Must allocate a new resource */
             num_resources++;
-            resource_last_finish = (int*)realloc(resource_last_finish, sizeof(int) * num_resources);
-            if (!resource_last_finish) { free(sorted); return -1; }
+            resource_last_finish = (int*)realloc(resource_last_finish,
+                                               sizeof(int) * num_resources);
+            if (!resource_last_finish) { free(mapped); return -1; }
             resource_last_finish[num_resources - 1] = finish;
-            if (resources_out) resources_out[i] = num_resources - 1;
+            if (resources_out) resources_out[act_idx] = num_resources - 1;
         }
     }
 
-    if (resources_out) {
-        /* Map the sorted-order indices back to original order.
-           We track which original index each sorted element came from. */
-        /* The above directly assigns resources_out[i] where i is the
-           sorted-loop position; but the caller likely expects original
-           ordering.  We'll re-assign using an index mapping. */
-        /* Simpler: just store in the same order as the sorted iteration
-           because caller typically sorts activities first anyway. */
-    }
-
-    free(sorted);
+    free(mapped);
     free(resource_last_finish);
 
     return num_resources;
@@ -99,65 +95,59 @@ int interval_partition_with_count(const IntervalActivity* activities, int count,
         return -1;
     }
 
-    /* Build array indexed by original position so we can map back later */
-    /* Activities are already in original caller order; we sort them internally
-       but track original indices. */
+    /* Make a copy and sort by start time ascending */
+    IntervalActivity* sorted = (IntervalActivity*)malloc(sizeof(IntervalActivity) * count);
+    if (!sorted) return -1;
+    memcpy(sorted, activities, sizeof(IntervalActivity) * count);
+
+    qsort(sorted, (size_t)count, sizeof(IntervalActivity), cmp_start_asc);
+
+    /* Resource tracking */
+    int num_resources = 0;
+    int* resource_last_finish = NULL;
+
+    /* Map sorted-order results back to original indices.
+       We'll track original indices alongside the sorted activities. */
     typedef struct {
         int original_idx;
         IntervalActivity act;
     } MappedActivity;
 
     MappedActivity* mapped = (MappedActivity*)malloc(sizeof(MappedActivity) * count);
-    if (!mapped) return -1;
+    if (!mapped) { free(sorted); return -1; }
 
     for (int i = 0; i < count; i++) {
         mapped[i].original_idx = i;
-        mapped[i].act = activities[i];
+        mapped[i].act = sorted[i];
     }
 
-    /* Sort by finish time */
-    for (int i = 0; i < count - 1; i++) {
-        for (int j = i + 1; j < count; j++) {
-            if (mapped[j].act.finish_time < mapped[i].act.finish_time) {
-                MappedActivity tmp = mapped[i];
-                mapped[i] = mapped[j];
-                mapped[j] = tmp;
-            }
-        }
-    }
+    free(sorted);
 
-    /* Greedy assign */
-    int num_resources = 0;
-    int* resource_last_finish = NULL;
+    /* Greedy assign, tracking original indices */
+    num_resources = 0;
+    resource_last_finish = NULL;
 
     for (int i = 0; i < count; i++) {
         int act_idx = mapped[i].original_idx;
         int start = mapped[i].act.start_time;
         int finish = mapped[i].act.finish_time;
 
-        if (!resource_last_finish) {
-            resource_last_finish = (int*)malloc(sizeof(int));
-            if (!resource_last_finish) { free(mapped); return -1; }
-            resource_last_finish[0] = finish;
-            resources_out[act_idx] = 0;
-            num_resources = 1;
-            continue;
-        }
-
-        int free_idx = -1;
+        /* Try to assign to an existing resource whose last finish <= start */
+        int assigned = 0;
         for (int r = 0; r < num_resources; r++) {
             if (resource_last_finish[r] <= start) {
-                free_idx = r;
+                resource_last_finish[r] = finish;
+                resources_out[act_idx] = r;
+                assigned = 1;
                 break;
             }
         }
 
-        if (free_idx >= 0) {
-            resource_last_finish[free_idx] = finish;
-            resources_out[act_idx] = free_idx;
-        } else {
+        if (!assigned) {
+            /* Must allocate a new resource */
             num_resources++;
-            resource_last_finish = (int*)realloc(resource_last_finish, sizeof(int) * num_resources);
+            resource_last_finish = (int*)realloc(resource_last_finish,
+                                               sizeof(int) * num_resources);
             if (!resource_last_finish) { free(mapped); return -1; }
             resource_last_finish[num_resources - 1] = finish;
             resources_out[act_idx] = num_resources - 1;
